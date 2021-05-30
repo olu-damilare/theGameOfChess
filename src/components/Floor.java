@@ -1,7 +1,5 @@
 package components;
 
-import java.util.Arrays;
-import java.util.Objects;
 
 public class Floor {
 
@@ -9,9 +7,9 @@ public class Floor {
     private int rank;
     private char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
-    public Floor(int x_coordinate, int y_coordinate) {
-        rank = y_coordinate;
-        file = files[x_coordinate - 1];
+    public Floor(Position position) {
+        rank = position.get_Y_coordinate();
+        file = files[position.get_X_coordinate() - 1];
     }
     public Floor(int rank, char file){
         this.rank = rank;
