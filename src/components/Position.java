@@ -1,7 +1,5 @@
 package components;
 
-import java.util.Objects;
-
 public class Position {
 
     private int x_coordinate;
@@ -25,5 +23,17 @@ public class Position {
 
     public int get_Y_coordinate() {
         return y_coordinate;
+    }
+
+    public void increaseValueOfY_coordinateBy(int numberOfSteps) {
+        y_coordinate += numberOfSteps;
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "x_coordinate=" + x_coordinate +
+                ", y_coordinate=" + y_coordinate +
+                '}';
     }
 }
