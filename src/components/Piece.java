@@ -22,7 +22,7 @@ public class Piece {
     }
 
     public Floor getCurrentFloor() {
-        Floor floor = new Floor(currentPosition.get_X_coordinate(), currentPosition.get_Y_coordinate());
+        Floor floor = new Floor(currentPosition);
         return floor;
     }
 
@@ -37,4 +37,10 @@ public class Piece {
     public void undoMove(){
         moves.pop();
     }
+
+    public void move(){
+        if(this.getClass().getName().equals("components.Pawn")){
+            currentPosition.increaseValueOfY_coordinateBy(1);
+        }
+    };
 }
