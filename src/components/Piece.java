@@ -2,7 +2,7 @@ package components;
 
 import java.util.Stack;
 
-public class Piece {
+public abstract class Piece {
 
     private final Colour colour;
     private Position currentPosition;
@@ -38,9 +38,5 @@ public class Piece {
         moves.pop();
     }
 
-    public void move(){
-        if(this.getClass().getName().equals("components.Pawn")){
-            currentPosition.increaseValueOfY_coordinateBy(1);
-        }
-    };
+    public abstract void move(Floor destinationFloor);
 }
