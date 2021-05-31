@@ -3,22 +3,28 @@ package components;
 
 public class Floor {
 
-    private final char file;
+    private final int file;
     private int rank;
     private char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    private boolean isOccupied;
+    private Piece currentOccupant;
 
     public Floor(Position position) {
         rank = position.get_Y_coordinate();
-        file = files[position.get_X_coordinate() - 1];
+        file = position.get_X_coordinate();
     }
-    public Floor(int rank, char file){
+    public Floor(int rank, int file){
         this.rank = rank;
         this.file = file;
     }
 
     @Override
     public String toString() {
-        return "" + file + rank;
+        return "" + files[getFile() - 1] + rank;
+    }
+
+    public int getFile() {
+        return file;
     }
 
     @Override
@@ -28,4 +34,23 @@ public class Floor {
         return file == floor.file && rank == floor.rank;
     }
 
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void setIsOccupied(boolean isOccupied) {
+        this.isOccupied = isOccupied;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public Piece getCurrentOccupant() {
+        return currentOccupant;
+    }
+
+    public void setOccupant(Piece piece) {
+        currentOccupant = piece;
+    }
 }
