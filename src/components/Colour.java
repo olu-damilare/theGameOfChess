@@ -1,5 +1,5 @@
 package components;
 
 public enum Colour {
-    BLACK,
+    BLACK, WHITE;
 }
