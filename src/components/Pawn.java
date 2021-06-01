@@ -10,15 +10,22 @@ public class Pawn extends Piece{
         super(colour, defaultPosition);
     }
 
+    public Pawn(Colour colour, Floor floor) {
+        super(colour, floor);
+    }
+
     @Override
     public void move(Floor destinationFloor) {
-        boolean oneStepMove = destinationFloor.getRank() - getCurrentPosition().get_Y_coordinate() == 1;
-        boolean twoStepsMove = destinationFloor.getRank() - getCurrentPosition().get_Y_coordinate() == 2;
-        Piece destinationOccupant = destinationFloor.getCurrentOccupant();
-        boolean matchingColours = destinationOccupant != null && destinationFloor.getCurrentOccupant().getColour().equals(getColour());
-        boolean toCapture = oneStepMove && Math.abs(getCurrentFloor().getFile() - destinationFloor.getFile()) == 1 && !matchingColours;
-        boolean invalidCapture = oneStepMove && Math.abs(getCurrentFloor().getFile() - destinationFloor.getFile()) == 1 && destinationFloor.getCurrentOccupant() == null;
-        if(!hasMadeFirstMove && !(oneStepMove || twoStepsMove)){
+        boolean oneStepMove = destinationFloor.getRank() - getCurrentFloor().getRank() == 1;
+        boolean twoStepsMove = destinationFloor.getRank() - getCurrentFloor().getRank() == 2;
+        Piece destinationOccupant = null;
+        if(destinationFloor.getCurrentOccupant() != null)
+        destinationOccupant = destinationFloor.getCurrentOccupant();
+        boolean diagonalMove = oneStepMove && Math.abs(getCurrentFloor().getFile() - destinationFloor.getFile()) == 1;
+        boolean matchingColours = destinationOccupant != null && destinationOccupant.getColour().equals(getColour());
+        boolean toCapture = diagonalMove && !matchingColours;
+        boolean invalidCapture = diagonalMove && (destinationOccupant == null || matchingColours);
+        if(!hasMadeFirstMove  && !(oneStepMove || twoStepsMove)){
             throw new InvalidMoveException("Invalid move");
         }else if(hasMadeFirstMove && !oneStepMove) {
             throw new InvalidMoveException("Invalid move");
@@ -27,21 +34,31 @@ public class Pawn extends Piece{
             throw new InvalidMoveException("Invalid move");
         }
 
-        if(!hasMadeFirstMove){
+        if(!hasMadeFirstMove && !toCapture){
             if(oneStepMove){
                 getCurrentPosition().increaseValueOfY_coordinateBy(1);
             }else if(twoStepsMove){
                 getCurrentPosition().increaseValueOfY_coordinateBy(2);
             }
             hasMadeFirstMove = true;
-        }else if(oneStepMove) {
+        }else if(oneStepMove && !toCapture) {
             getCurrentPosition().increaseValueOfY_coordinateBy(1);
             destinationFloor.setIsOccupied(true);
+        }else if(toCapture){
+            getCurrentPosition().increaseValueOfY_coordinateBy(1);
+            if(destinationFloor.getFile() < getCurrentFloor().getFile()){
+                getCurrentPosition().decreaseValueOfX_coordinateBy(1);
+            }else{
+                getCurrentPosition().increaseValueOfX_coordinateBy(1);
+            }
+            capture(destinationOccupant);
+
         }
         updateFloorsStatus(destinationFloor);
     }
 
     private void updateFloorsStatus(Floor destinationFloor) {
+        assignFloor(destinationFloor);
         getCurrentFloor().setIsOccupied(false);
         getCurrentFloor().setOccupant(null);
         destinationFloor.setOccupant(this);
