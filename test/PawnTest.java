@@ -4,7 +4,7 @@ import components.Position;
 import gameExceptions.InvalidMoveException;
 import org.junit.jupiter.api.Test;
 
-import static components.Colour.BLACK;
+import static components.Colour.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PawnTest {
@@ -94,5 +94,45 @@ public class PawnTest {
         assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor));
         assertThrows(InvalidMoveException.class, ()-> pawn.move(thirdFloor));
         assertThrows(InvalidMoveException.class, ()-> pawn.move(fourthFloor));
+    }
+
+    @Test
+    void testThatPawnCanMoveOneStepDiagonallyToCaptureEnemy(){
+        Position position = new Position(2, 2);
+        Position enemyPosition = new Position(1, 3);
+        Floor floor = new Floor(2, 2);
+        Floor enemyFloor = new Floor(3, 1);
+        Pawn pawn = new Pawn(BLACK, floor);
+        Pawn enemyPawn = new Pawn(WHITE, enemyFloor);
+
+        assertTrue(floor.isOccupied());
+        assertTrue(enemyFloor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertEquals(enemyFloor, enemyPawn.getCurrentFloor());
+        assertEquals(pawn, floor.getCurrentOccupant());
+        assertEquals(enemyPawn, enemyFloor.getCurrentOccupant());
+
+        pawn.move(enemyFloor);
+        assertEquals(enemyFloor, pawn.getCurrentFloor());
+        pawn.capture(enemyPawn);
+        enemyPawn.isCaptured();
+        assertTrue(enemyPawn.isCaptured());
+        assertEquals(pawn, enemyFloor.getCurrentOccupant());
+        assertNull(enemyPawn);
+        assertNull(floor.getCurrentOccupant());
+        assertEquals(enemyPosition, pawn.getCurrentPosition());
+
+    }
+
+    @Test
+    void test(){
+        Pawn pawn = new Pawn(BLACK, new Floor(2,3));
+        assertNotNull(pawn);
+        nullify(pawn);
+        assertNull(pawn);
+    }
+
+    private void nullify(Pawn pawn) {
+        pawn = null;
     }
 }
