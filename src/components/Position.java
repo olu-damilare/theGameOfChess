@@ -36,4 +36,12 @@ public class Position {
                 ", y_coordinate=" + y_coordinate +
                 '}';
     }
+
+    public void decreaseValueOfX_coordinateBy(int numberOfSteps) {
+        x_coordinate -= numberOfSteps;
+    }
+
+    public void increaseValueOfX_coordinateBy(int numberOfSteps) {
+        x_coordinate += numberOfSteps;
+    }
 }
