@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PawnTest {
 
+
     @Test
     void testThatPawnCanMoveOneStepForwardOnFirstMove(){
         Position position = new Position(2, 2);
@@ -114,25 +115,12 @@ public class PawnTest {
 
         pawn.move(enemyFloor);
         assertEquals(enemyFloor, pawn.getCurrentFloor());
-        pawn.capture(enemyPawn);
-        enemyPawn.isCaptured();
         assertTrue(enemyPawn.isCaptured());
         assertEquals(pawn, enemyFloor.getCurrentOccupant());
-        assertNull(enemyPawn);
+        assertFalse(floor.isOccupied());
         assertNull(floor.getCurrentOccupant());
         assertEquals(enemyPosition, pawn.getCurrentPosition());
 
     }
 
-    @Test
-    void test(){
-        Pawn pawn = new Pawn(BLACK, new Floor(2,3));
-        assertNotNull(pawn);
-        nullify(pawn);
-        assertNull(pawn);
-    }
-
-    private void nullify(Pawn pawn) {
-        pawn = null;
-    }
 }
