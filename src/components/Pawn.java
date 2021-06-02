@@ -43,7 +43,7 @@ public class Pawn extends Piece{
             hasMadeFirstMove = true;
         }else if(oneStepMove && !toCapture) {
             getCurrentPosition().increaseValueOfY_coordinateBy(1);
-            destinationFloor.setIsOccupied(true);
+            destinationFloor.setOccupyStatus(true);
         }else if(toCapture){
             getCurrentPosition().increaseValueOfY_coordinateBy(1);
             if(destinationFloor.getFile() < getCurrentFloor().getFile()){
@@ -58,11 +58,9 @@ public class Pawn extends Piece{
     }
 
     private void updateFloorsStatus(Floor destinationFloor) {
-        assignFloor(destinationFloor);
-        getCurrentFloor().setIsOccupied(false);
+        getCurrentFloor().setOccupyStatus(false);
         getCurrentFloor().setOccupant(null);
-        destinationFloor.setOccupant(this);
-        destinationFloor.setIsOccupied(true);
+        assignFloor(destinationFloor);
     }
 
     public boolean hasMadeFirstMove() {
