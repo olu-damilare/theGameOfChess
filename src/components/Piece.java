@@ -1,5 +1,7 @@
 package components;
 
+import gameExceptions.CapturedPieceQueryException;
+
 import java.util.Stack;
 
 public abstract class Piece {
@@ -24,32 +26,47 @@ public abstract class Piece {
     }
 
     public void assignFloor(Floor floor) {
+        if(isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         currentFloor = floor;
         floor.setOccupant(this);
-        floor.setIsOccupied(true);
+        floor.setOccupyStatus(true);
+
     }
 
     public Colour getColour() {
+        if (isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         return colour;
     }
 
     public Position getCurrentPosition() {
+        if(isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         return currentPosition;
     }
 
     public Floor getCurrentFloor() {
+        if(isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         return currentFloor;
     }
 
     public void addMove(Move move){
+        if(isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         moves.push(move);
     }
 
     public Move getLastMove(){
+        if(isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         return moves.peek();
     }
 
     public void undoMove(){
+        if(isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         moves.pop();
     }
 
@@ -60,8 +77,9 @@ public abstract class Piece {
     }
 
     public void capture(Piece capturedPiece){
+        if(isCaptured)
+            throw new CapturedPieceQueryException("Captured piece cannot be invoked");
         capturedPiece.setCapturedStatus(true);
-        capturedPiece = null;
     }
 
     private void setCapturedStatus(boolean isCaptured) {
