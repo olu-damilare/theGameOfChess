@@ -38,7 +38,7 @@ public class Floor {
         return isOccupied;
     }
 
-    public void setIsOccupied(boolean isOccupied) {
+    public void setOccupyStatus(boolean isOccupied) {
         this.isOccupied = isOccupied;
     }
 
