@@ -99,8 +99,6 @@ public class PawnTest {
 
     @Test
     void testThatPawnCanMoveOneStepDiagonallyToCaptureEnemy(){
-        Position position = new Position(2, 2);
-        Position enemyPosition = new Position(1, 3);
         Floor floor = new Floor(2, 2);
         Floor enemyFloor = new Floor(3, 1);
         Pawn pawn = new Pawn(BLACK, floor);
@@ -119,7 +117,10 @@ public class PawnTest {
         assertEquals(pawn, enemyFloor.getCurrentOccupant());
         assertFalse(floor.isOccupied());
         assertNull(floor.getCurrentOccupant());
-        assertEquals(enemyPosition, pawn.getCurrentPosition());
+    }
+
+    @Test
+    void testThatPawnCanUndoMove(){
 
     }
 
