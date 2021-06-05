@@ -1,4 +1,5 @@
 import components.Floor;
+import components.Move;
 import components.Pawn;
 import components.Position;
 import gameExceptions.InvalidMoveException;
@@ -121,7 +122,41 @@ public class PawnTest {
 
     @Test
     void testThatPawnCanUndoMove(){
+        Floor floor = new Floor(2, 2);
+        assertEquals("b2", floor.toString());
+        Floor secondFloor = new Floor(3, 2);
+        assertEquals("b3", secondFloor.toString());
+        Floor thirdFloor = new Floor(4, 2);
+        assertEquals("b4", thirdFloor.toString());
+
+        Pawn pawn = new Pawn(BLACK, floor);
+        assertTrue(floor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        pawn.move(secondFloor);
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, pawn.getCurrentFloor());
+        assertNull(floor.getCurrentOccupant());
+        Move move = new Move(floor, secondFloor);
+        assertEquals("b2 b3", move.toString());
+        assertEquals(move, pawn.getLastMove());
+        pawn.move(thirdFloor);
+        assertTrue(thirdFloor.isOccupied());
+        assertEquals(thirdFloor, pawn.getCurrentFloor());
+        assertNull(secondFloor.getCurrentOccupant());
+        Move secondMove = new Move(secondFloor, thirdFloor);
+        assertEquals(secondMove, pawn.getLastMove());
+
+        pawn.undoMove();
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, pawn.getCurrentFloor());
+        assertEquals(pawn, secondFloor.getCurrentOccupant());
+        assertEquals(move, pawn.getLastMove());
+
 
     }
+
+
 
 }
