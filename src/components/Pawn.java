@@ -54,6 +54,8 @@ public class Pawn extends Piece{
             capture(destinationOccupant);
 
         }
+        Move move = new Move(getCurrentFloor(), destinationFloor);
+        addMove(move);
         updateFloorsStatus(destinationFloor);
     }
 
