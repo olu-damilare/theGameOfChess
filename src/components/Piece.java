@@ -8,7 +8,7 @@ public abstract class Piece {
 
     private final Colour colour;
     private Position currentPosition;
-    private Stack<Move> moves;
+    private Stack<Move> moves = new Stack();
     private boolean isCaptured;
     private Floor currentFloor;
 
