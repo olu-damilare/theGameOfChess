@@ -24,4 +24,7 @@ public class Move {
     }
 
 
+    public Floor getPreviousFloor() {
+        return previousFloor;
+    }
 }
