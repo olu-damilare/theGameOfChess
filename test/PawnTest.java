@@ -99,7 +99,7 @@ public class PawnTest {
     }
 
     @Test
-    void testThatPawnCanMoveOneStepDiagonallyToCaptureEnemy(){
+    void testThatPawnCanMoveOneStepForwardDiagonallyToCaptureEnemy(){
         Floor floor = new Floor(2, 2);
         Floor enemyFloor = new Floor(3, 1);
         Pawn pawn = new Pawn(BLACK, floor);
