@@ -52,7 +52,6 @@ public class Pawn extends Piece{
                 getCurrentPosition().increaseValueOfX_coordinateBy(1);
             }
             capture(destinationOccupant);
-
         }
         Move move = new Move(getCurrentFloor(), destinationFloor);
         addMove(move);
