@@ -12,7 +12,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public void move(Floor destinationFloor) {
+    public void move(Floor destinationFloor, Board board) {
         int rankDifference = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank());
         int fileDifference = Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile());
         if(fileDifference != rankDifference)
