@@ -1,15 +1,23 @@
-import components.Floor;
-import components.Move;
-import components.Pawn;
-import components.Position;
+import components.*;
 import gameExceptions.InvalidMoveException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static components.Colour.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PawnTest {
+    Board board;
+    @BeforeEach
+    void setUp(){
+        board = new Board(8,8);
+    }
 
+    @AfterEach
+    void tearDown(){
+        board = null;
+    }
 
     @Test
     void testThatPawnCanMoveOneStepForwardOnFirstMove(){
@@ -19,10 +27,11 @@ public class PawnTest {
         Floor floor = new Floor(3, 2);
         assertFalse(pawn.hasMadeFirstMove());
         assertFalse(floor.isOccupied());
-        pawn.move(floor);
-        assertTrue(floor.isOccupied());
-        assertEquals(floor, pawn.getCurrentFloor());
-        assertEquals(pawn, floor.getCurrentOccupant());
+        pawn.move(floor, board);
+        Floor boardFloor = board.getFloor(floor.getRank(), floor.getFile());
+        assertTrue(boardFloor.isOccupied());
+        assertEquals(boardFloor, pawn.getCurrentFloor());
+        assertEquals(pawn, boardFloor.getCurrentOccupant());
         assertEquals(new Position(2,3), pawn.getCurrentPosition());
     }
 
@@ -34,7 +43,7 @@ public class PawnTest {
         assertFalse(pawn.hasMadeFirstMove());
         Floor floor = new Floor(4, 2);
         assertFalse(floor.isOccupied());
-        pawn.move(floor);
+        pawn.move(floor, board);
         assertTrue(floor.isOccupied());
         assertEquals(floor, pawn.getCurrentFloor());
         assertEquals(pawn, floor.getCurrentOccupant());
@@ -50,13 +59,13 @@ public class PawnTest {
         Floor secondFloor = new Floor(5, 2);
 
         assertFalse(floor.isOccupied());
-        pawn.move(floor);
+        pawn.move(floor, board);
         assertTrue(floor.isOccupied());
         assertEquals(floor, pawn.getCurrentFloor());
         assertEquals(pawn, floor.getCurrentOccupant());
         assertEquals(new Position(2, 4), pawn.getCurrentPosition());
 
-        pawn.move(secondFloor);
+        pawn.move(secondFloor, board);
         assertTrue(secondFloor.isOccupied());
         assertEquals(secondFloor, pawn.getCurrentFloor());
         assertEquals(pawn, secondFloor.getCurrentOccupant());
@@ -72,13 +81,13 @@ public class PawnTest {
         Floor floor = new Floor(4, 2);
         Floor secondFloor = new Floor(6, 2);
         assertFalse(floor.isOccupied());
-        pawn.move(floor);
+        pawn.move(floor, board);
         assertTrue(floor.isOccupied());
         assertEquals(floor, pawn.getCurrentFloor());
         assertEquals(pawn, floor.getCurrentOccupant());
         assertEquals(new Position(2,4), pawn.getCurrentPosition());
 
-        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor));
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor, board));
     }
 
     @Test
@@ -92,10 +101,10 @@ public class PawnTest {
         Floor thirdFloor = new Floor(1, 2);
         Floor fourthFloor = new Floor(2, 3);
 
-        assertThrows(InvalidMoveException.class, ()-> pawn.move(floor));
-        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor));
-        assertThrows(InvalidMoveException.class, ()-> pawn.move(thirdFloor));
-        assertThrows(InvalidMoveException.class, ()-> pawn.move(fourthFloor));
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(floor, board));
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(thirdFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(fourthFloor, board));
     }
 
     @Test
@@ -112,7 +121,7 @@ public class PawnTest {
         assertEquals(pawn, floor.getCurrentOccupant());
         assertEquals(enemyPawn, enemyFloor.getCurrentOccupant());
 
-        pawn.move(enemyFloor);
+        pawn.move(enemyFloor, board);
         assertEquals(enemyFloor, pawn.getCurrentFloor());
         assertTrue(enemyPawn.isCaptured());
         assertEquals(pawn, enemyFloor.getCurrentOccupant());
@@ -134,14 +143,14 @@ public class PawnTest {
         assertEquals(floor, pawn.getCurrentFloor());
         assertNull(secondFloor.getCurrentOccupant());
 
-        pawn.move(secondFloor);
+        pawn.move(secondFloor, board);
         assertTrue(secondFloor.isOccupied());
         assertEquals(secondFloor, pawn.getCurrentFloor());
         assertNull(floor.getCurrentOccupant());
         Move move = new Move(floor, secondFloor);
         assertEquals("b2 b3", move.toString());
         assertEquals(move, pawn.getLastMove());
-        pawn.move(thirdFloor);
+        pawn.move(thirdFloor, board);
         assertTrue(thirdFloor.isOccupied());
         assertEquals(thirdFloor, pawn.getCurrentFloor());
         assertNull(secondFloor.getCurrentOccupant());
