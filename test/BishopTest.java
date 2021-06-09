@@ -1,13 +1,26 @@
 import components.Bishop;
+import components.Board;
 import components.Floor;
 import components.Pawn;
 import gameExceptions.InvalidMoveException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static components.Colour.BLACK;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BishopTest {
+    Board board;
+    @BeforeEach
+    void setUp(){
+        board = new Board(8,8);
+    }
+
+    @AfterEach
+    void tearDown(){
+        board = null;
+    }
 
     @Test
     void testThatBishopCanMoveDiagonallyThroughUpperLeftDirection(){
@@ -20,7 +33,7 @@ public class BishopTest {
         assertTrue(bishopFloor.isOccupied());
         assertFalse(destinationFloor.isOccupied());
 
-        bishop.move(destinationFloor);
+        bishop.move(destinationFloor, board);
         assertEquals(destinationFloor, bishop.getCurrentFloor());
         assertEquals(bishop, destinationFloor.getCurrentOccupant());
         assertNull(bishopFloor.getCurrentOccupant());
@@ -39,7 +52,7 @@ public class BishopTest {
         assertTrue(bishopFloor.isOccupied());
         assertFalse(destinationFloor.isOccupied());
 
-        bishop.move(destinationFloor);
+        bishop.move(destinationFloor, board);
         assertEquals(destinationFloor, bishop.getCurrentFloor());
         assertEquals(bishop, destinationFloor.getCurrentOccupant());
         assertNull(bishopFloor.getCurrentOccupant());
@@ -58,7 +71,7 @@ public class BishopTest {
         assertTrue(bishopFloor.isOccupied());
         assertFalse(destinationFloor.isOccupied());
 
-        bishop.move(destinationFloor);
+        bishop.move(destinationFloor, board);
         assertEquals(destinationFloor, bishop.getCurrentFloor());
         assertEquals(bishop, destinationFloor.getCurrentOccupant());
         assertNull(bishopFloor.getCurrentOccupant());
@@ -77,7 +90,7 @@ public class BishopTest {
         assertTrue(bishopFloor.isOccupied());
         assertFalse(destinationFloor.isOccupied());
 
-        bishop.move(destinationFloor);
+        bishop.move(destinationFloor, board);
         assertEquals(destinationFloor, bishop.getCurrentFloor());
         assertEquals(bishop, destinationFloor.getCurrentOccupant());
         assertNull(bishopFloor.getCurrentOccupant());
@@ -98,10 +111,10 @@ public class BishopTest {
         Floor thirdFloor = new Floor(5, 3);
         Floor fourthFloor = new Floor(1, 3);
 
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(firstFloor));
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(secondFloor));
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(thirdFloor));
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(fourthFloor));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(firstFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(secondFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(thirdFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(fourthFloor, board));
     }
 
     @Test
@@ -126,10 +139,10 @@ public class BishopTest {
         Floor seventhFloor = new Floor(2, 2);
         Floor eighthFloor = new Floor(2,6);
         System.out.println(fifthFloor);
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(fifthFloor));
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(sixthFloor));
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(seventhFloor));
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(eighthFloor));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(fifthFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(sixthFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(seventhFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(eighthFloor, board));
 
     }
 }

@@ -71,7 +71,7 @@ public abstract class Piece {
         assignFloor(lastMove.getPreviousFloor());
     }
 
-    public abstract void move(Floor destinationFloor);
+    public abstract void move(Floor destinationFloor, Board board);
 
     public boolean isCaptured(){
         return isCaptured;
