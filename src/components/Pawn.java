@@ -19,4 +19,8 @@ public class Pawn extends Piece {
 
 
     }
+
+    public boolean hasMadeFirstMove(){
+        return hasMadeFirstMove;
+    }
 }
