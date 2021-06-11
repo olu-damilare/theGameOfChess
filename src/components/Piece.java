@@ -86,4 +86,11 @@ public abstract class Piece {
     private void setCapturedStatus(boolean isCaptured) {
         this.isCaptured = isCaptured;
     }
+
+    @Override
+    public String toString() {
+        return  "" + colour + '\n' +
+                isCaptured + '\n' +
+                currentFloor;
+    }
 }
