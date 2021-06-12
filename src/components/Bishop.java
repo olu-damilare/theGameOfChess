@@ -13,29 +13,128 @@ public class Bishop extends Piece {
 
     @Override
     public void move(Floor destinationFloor, Board board) {
-        int rankDifference = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank());
-        int fileDifference = Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile());
-        if(fileDifference != rankDifference)
-            throw new InvalidMoveException("Invalid move");
-        boolean isUpperLeft = destinationFloor.getRank() > getCurrentFloor().getRank() && destinationFloor.getFile() < getCurrentFloor().getFile();
-//        boolean isUpperRight = destinationFloor.getRank() > getCurrentFloor().getRank() && destinationFloor.getFile() > getCurrentFloor().getFile();
-//        boolean isLowerLeft = destinationFloor.getRank() < getCurrentFloor().getRank() && destinationFloor.getFile() < getCurrentFloor().getFile();
-//        boolean isLowerRight = destinationFloor.getRank() < getCurrentFloor().getRank() && destinationFloor.getFile() > getCurrentFloor().getFile();
+        validateMoveIsDiagonal(destinationFloor);
+        boolean floorIsOccupied = destinationFloor.getCurrentOccupant() != null;
+        validateForDestinationOccupant(destinationFloor, floorIsOccupied);
 
-        if(isUpperLeft){
-            int rankCounter = getCurrentFloor().getRank() + 1;
-            int fileCounter = getCurrentFloor().getFile() - 1;
-            while(rankCounter < destinationFloor.getRank()){
-                Floor floor = new Floor(rankCounter, fileCounter);
-                if(floor.isOccupied())
-                    throw new InvalidMoveException("Invalid move");
-            rankCounter++;
-            fileCounter--;
-            }
+        boolean isUpperLeft = isUpperLeftDirection(destinationFloor);
+        boolean isUpperRight = isUpperRightDirection(destinationFloor);
+        boolean isLowerLeft = isLowerLeftDirection(destinationFloor);
+        boolean isLowerRight = isLowerRightDirection(destinationFloor);
+
+        validateForObstructionOfMove(destinationFloor, board, isUpperLeft, isUpperRight, isLowerLeft, isLowerRight);
+
+        if(floorIsOccupied && destinationFloor.getCurrentOccupant().getColour() != getColour()){
+            capture(destinationFloor.getCurrentOccupant());
         }
 
+        updateFloorsStatus(destinationFloor);
+    }
+
+    private void validateForDestinationOccupant(Floor destinationFloor, boolean floorIsOccupied) {
+        if(floorIsOccupied){
+            if(destinationFloor.getCurrentOccupant().getColour() == getColour()){
+                throw new InvalidMoveException("Invalid move");
+            }
+        }
+    }
+
+    private void validateForObstructionOfMove(Floor destinationFloor, Board board, boolean isUpperLeft, boolean isUpperRight, boolean isLowerLeft, boolean isLowerRight) {
+        if(isUpperLeft){
+            checkForObstructionInUpperLeft(destinationFloor, board);
+        }else if(isUpperRight){
+            checkForObstructionInUpperRight(destinationFloor, board);
+        }else if(isLowerLeft){
+            checkForObstructionInLowerLeft(destinationFloor, board);
+        }else if(isLowerRight){
+            checkForObstructionInLowerRight(destinationFloor, board);
+        }
+    }
+
+    private void updateFloorsStatus(Floor destinationFloor) {
         getCurrentFloor().setOccupant(null);
         getCurrentFloor().setOccupyStatus(false);
         assignFloor(destinationFloor);
+    }
+
+
+    private void checkForObstructionInLowerRight(Floor destinationFloor, Board board) {
+        int rankCounter = getCurrentFloor().getRank() - 1;
+        int fileCounter = getCurrentFloor().getFile() + 1;
+
+        while(rankCounter > destinationFloor.getRank()){
+            Floor floor = board.getFloor(rankCounter, fileCounter);
+            if(floor.isOccupied())
+                throw new InvalidMoveException("Invalid move");
+            rankCounter--;
+            fileCounter++;
+        }
+    }
+
+    private void checkForObstructionInLowerLeft(Floor destinationFloor, Board board) {
+        int rankCounter = getCurrentFloor().getRank() - 1;
+        int fileCounter = getCurrentFloor().getFile() - 1;
+
+        while(rankCounter > destinationFloor.getRank()){
+            Floor floor = board.getFloor(rankCounter, fileCounter);
+            if(floor.isOccupied())
+                throw new InvalidMoveException("Invalid move");
+            rankCounter--;
+            fileCounter--;
+        }
+    }
+
+    private void checkForObstructionInUpperRight(Floor destinationFloor, Board board) {
+        int rankCounter = getCurrentFloor().getRank() + 1;
+        int fileCounter = getCurrentFloor().getFile() + 1;
+
+        while(rankCounter < destinationFloor.getRank()){
+            Floor floor = board.getFloor(rankCounter, fileCounter);
+            if(floor.isOccupied())
+                throw new InvalidMoveException("Invalid move");
+            rankCounter++;
+            fileCounter++;
+        }
+    }
+
+    private void checkForObstructionInUpperLeft(Floor destinationFloor, Board board) {
+        int rankCounter = getCurrentFloor().getRank() + 1;
+        int fileCounter = getCurrentFloor().getFile() - 1;
+
+        while(rankCounter < destinationFloor.getRank()){
+            Floor floor = board.getFloor(rankCounter, fileCounter);
+            if(floor.isOccupied())
+                throw new InvalidMoveException("Invalid move");
+        rankCounter++;
+        fileCounter--;
+        }
+    }
+
+    private boolean isLowerRightDirection(Floor destinationFloor) {
+        return destinationFloor.getRank() < getCurrentFloor().getRank() &&
+                destinationFloor.getFile() > getCurrentFloor().getFile();
+    }
+
+    private boolean isLowerLeftDirection(Floor destinationFloor) {
+        return destinationFloor.getRank() < getCurrentFloor().getRank() &&
+                destinationFloor.getFile() < getCurrentFloor().getFile();
+    }
+
+    private boolean isUpperRightDirection(Floor destinationFloor) {
+        return destinationFloor.getRank() > getCurrentFloor().getRank() &&
+                destinationFloor.getFile() > getCurrentFloor().getFile();
+    }
+
+    private boolean isUpperLeftDirection(Floor destinationFloor) {
+        return destinationFloor.getRank() > getCurrentFloor().getRank() &&
+                destinationFloor.getFile() < getCurrentFloor().getFile();
+    }
+
+    private void validateMoveIsDiagonal(Floor destinationFloor) {
+        int rankDifference = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank());
+        int fileDifference = Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile());
+        boolean isDiagonalMove = fileDifference == rankDifference;
+        if(!isDiagonalMove)
+            throw new InvalidMoveException("Invalid move");
     }
 }
