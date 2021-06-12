@@ -1,7 +1,7 @@
 package components;
 
 public class Board {
-    Floor[][] floors;
+    private Floor[][] floors;
 
     public Board(int numberOfRows, int numberOfColumns) {
         floors = new Floor[numberOfRows][numberOfColumns];
