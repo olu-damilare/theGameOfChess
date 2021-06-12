@@ -1,13 +1,10 @@
-import components.Bishop;
-import components.Board;
-import components.Floor;
-import components.Pawn;
+import components.*;
 import gameExceptions.InvalidMoveException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static components.Colour.BLACK;
+import static components.Colour.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BishopTest {
@@ -24,9 +21,9 @@ public class BishopTest {
 
     @Test
     void testThatBishopCanMoveDiagonallyThroughUpperLeftDirection(){
-        Floor bishopFloor = new Floor(1, 3);
+        Floor bishopFloor = board.getFloor(1, 3);
         Bishop bishop = new Bishop(BLACK, bishopFloor);
-        Floor destinationFloor = new Floor(3, 1);
+        Floor destinationFloor = board.getFloor(3, 1);
         assertEquals(bishopFloor, bishop.getCurrentFloor());
         assertEquals(bishop, bishopFloor.getCurrentOccupant());
         assertNull(destinationFloor.getCurrentOccupant());
@@ -43,9 +40,9 @@ public class BishopTest {
 
     @Test
     void testThatBishopCanMoveDiagonallyThroughUpperRightDirection(){
-        Floor bishopFloor = new Floor(1, 3);
+        Floor bishopFloor = board.getFloor(1, 3);
         Bishop bishop = new Bishop(BLACK, bishopFloor);
-        Floor destinationFloor = new Floor(5, 7);
+        Floor destinationFloor = board.getFloor(5, 7);
         assertEquals(bishopFloor, bishop.getCurrentFloor());
         assertEquals(bishop, bishopFloor.getCurrentOccupant());
         assertNull(destinationFloor.getCurrentOccupant());
@@ -62,9 +59,9 @@ public class BishopTest {
 
     @Test
     void testThatBishopCanMoveDiagonallyThroughLowerRightDirection(){
-        Floor bishopFloor = new Floor(4, 2);
+        Floor bishopFloor = board.getFloor(4, 2);
         Bishop bishop = new Bishop(BLACK, bishopFloor);
-        Floor destinationFloor = new Floor(1, 5);
+        Floor destinationFloor = board.getFloor(1, 5);
         assertEquals(bishopFloor, bishop.getCurrentFloor());
         assertEquals(bishop, bishopFloor.getCurrentOccupant());
         assertNull(destinationFloor.getCurrentOccupant());
@@ -81,9 +78,9 @@ public class BishopTest {
 
     @Test
     void testThatBishopCanMoveDiagonallyThroughLowerLeftDirection(){
-        Floor bishopFloor = new Floor(5, 7);
+        Floor bishopFloor = board.getFloor(5, 7);
         Bishop bishop = new Bishop(BLACK, bishopFloor);
-        Floor destinationFloor = new Floor(1, 3);
+        Floor destinationFloor = board.getFloor(1, 3);
         assertEquals(bishopFloor, bishop.getCurrentFloor());
         assertEquals(bishop, bishopFloor.getCurrentOccupant());
         assertNull(destinationFloor.getCurrentOccupant());
@@ -100,16 +97,16 @@ public class BishopTest {
 
     @Test
     void testThatBishopMovingInNonDiagonalDirection_throwsInvalidMoveException(){
-        Floor bishopFloor = new Floor(3, 3);
+        Floor bishopFloor = board.getFloor(3, 3);
         Bishop bishop = new Bishop(BLACK, bishopFloor);
         assertEquals(bishopFloor, bishop.getCurrentFloor());
         assertEquals(bishop, bishopFloor.getCurrentOccupant());
         assertTrue(bishopFloor.isOccupied());
 
-        Floor firstFloor = new Floor(3, 5);
-        Floor secondFloor = new Floor(3, 1);
-        Floor thirdFloor = new Floor(5, 3);
-        Floor fourthFloor = new Floor(1, 3);
+        Floor firstFloor = board.getFloor(3, 5);
+        Floor secondFloor = board.getFloor(3, 1);
+        Floor thirdFloor = board.getFloor(5, 3);
+        Floor fourthFloor = board.getFloor(1, 3);
 
         assertThrows(InvalidMoveException.class, ()-> bishop.move(firstFloor, board));
         assertThrows(InvalidMoveException.class, ()-> bishop.move(secondFloor, board));
@@ -118,12 +115,12 @@ public class BishopTest {
     }
 
     @Test
-    void testThatBishopCannotMoveToAFloorObstructedByAPiece(){
-        Floor bishopFloor = new Floor(4, 4);
-        Floor firstFloor = new Floor(5, 3);
-        Floor secondFloor = new Floor(5, 5);
-        Floor thirdFloor = new Floor(3, 3);
-        Floor fourthFloor = new Floor(3,5);
+    void testThatBishopMovingToAFloorObstructedByAPiece_throwsInvalidMoveException(){
+        Floor bishopFloor = board.getFloor(4, 4);
+        Floor firstFloor = board.getFloor(5, 3);
+        Floor secondFloor = board.getFloor(5, 5);
+        Floor thirdFloor = board.getFloor(3, 3);
+        Floor fourthFloor = board.getFloor(3,5);
         Pawn pawn = new Pawn(BLACK, firstFloor);
         Pawn secondPawn = new Pawn(BLACK, secondFloor);
         Pawn thirdPawn = new Pawn(BLACK, thirdFloor);
@@ -134,15 +131,38 @@ public class BishopTest {
         assertTrue(thirdFloor.isOccupied());
         assertTrue(fourthFloor.isOccupied());
 
-        Floor fifthFloor = new Floor(6, 2);
-        Floor sixthFloor = new Floor(6, 6);
-        Floor seventhFloor = new Floor(2, 2);
-        Floor eighthFloor = new Floor(2,6);
-        System.out.println(fifthFloor);
+        Floor fifthFloor = board.getFloor(6, 2);
+        Floor sixthFloor = board.getFloor(6, 6);
+        Floor seventhFloor = board.getFloor(2, 2);
+        Floor eighthFloor = board.getFloor(2,6);
         assertThrows(InvalidMoveException.class, ()-> bishop.move(fifthFloor, board));
         assertThrows(InvalidMoveException.class, ()-> bishop.move(sixthFloor, board));
         assertThrows(InvalidMoveException.class, ()-> bishop.move(seventhFloor, board));
         assertThrows(InvalidMoveException.class, ()-> bishop.move(eighthFloor, board));
+    }
 
+    @Test
+    void testThatBishopCanCaptureEnemy(){
+        Floor floor = board.getFloor(4, 4);
+        Floor enemyFloor = board.getFloor(6, 6);
+        Bishop bishop = new Bishop(BLACK, floor);
+        Piece enemyPiece = new Pawn(WHITE, enemyFloor);
+
+        bishop.move(enemyFloor, board);
+
+        assertTrue(enemyPiece.isCaptured());
+        assertNull(floor.getCurrentOccupant());
+        assertFalse(floor.isOccupied());
+        assertEquals(bishop, enemyFloor.getCurrentOccupant());
+    }
+
+    @Test
+    void testThatBishopMovingToFloorOccupiedByPieceOfMatchingColour_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4, 4);
+        Floor enemyFloor = board.getFloor(6, 6);
+        Bishop bishop = new Bishop(BLACK, floor);
+        Piece teamMate = new Pawn(BLACK, enemyFloor);
+
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(enemyFloor, board));
     }
 }
