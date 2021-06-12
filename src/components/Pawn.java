@@ -16,40 +16,61 @@ public class Pawn extends Piece {
 
     @Override
     public void move(Floor destinationFloor, Board board) {
-        boolean oneStepMove = destinationFloor.getRank() - getCurrentFloor().getRank() == 1;
-        boolean twoStepMove = destinationFloor.getRank() - getCurrentFloor().getRank() == 2;
-        Piece enemy;
+        boolean oneStepMove = isOneStepMove(destinationFloor);
+        boolean twoStepMove = isTwoStepMove(destinationFloor);
+        boolean occupiedFloor = destinationFloor.getCurrentOccupant() != null;
+        boolean validMove = (hasMadeFirstMove && oneStepMove) || (!hasMadeFirstMove && (oneStepMove || twoStepMove))
+                && !occupiedFloor;
+
+        Piece enemy = null;
         boolean validCaptureMove = false;
         boolean matchingColours;
 
-        if(destinationFloor.getCurrentOccupant() != null) {
+        if(occupiedFloor) {
             enemy = destinationFloor.getCurrentOccupant();
             matchingColours = enemy.getColour() == getColour();
-            validCaptureMove = oneStepMove && (Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank()) == 1) && !matchingColours;
+            validCaptureMove = isValidCaptureMove(destinationFloor, matchingColours);
         }
 
-        boolean validMove = (hasMadeFirstMove && oneStepMove) || (!hasMadeFirstMove && (oneStepMove || twoStepMove));
-
-
-        if(!validMove ){
-            throw new InvalidMoveException("Invalid move");
-        }
-        if(validCaptureMove){
-            throw new InvalidMoveException("Invalid move");
-        }
-
-
+        validateMove(validCaptureMove, validMove);
 
         if(!hasMadeFirstMove) {
-                updateFloorsStatus(destinationFloor);
-                hasMadeFirstMove = true;
-        }else{
-            updateFloorsStatus(destinationFloor);
+            hasMadeFirstMove = true;
         }
+        if(validCaptureMove){
+            capture(enemy);
+        }
+        updateFloorsStatus(destinationFloor);
+    }
 
+    private void validateMove(boolean validCaptureMove, boolean validMove) {
+        if(!validMove && !validCaptureMove) {
+            throw new InvalidMoveException("Invalid move");
+        }
+    }
+
+    private boolean isValidCaptureMove(Floor destinationFloor, boolean matchingColours) {
+        boolean validCaptureMove;
+        validCaptureMove = destinationFloor.getRank() - getCurrentFloor().getRank() == 1 &&
+                (Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile()) == 1)
+                && !matchingColours;
+        return validCaptureMove;
+    }
+
+    private boolean isTwoStepMove(Floor destinationFloor) {
+        boolean twoStepMove = destinationFloor.getRank() - getCurrentFloor().getRank() == 2 &&
+                (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
+        return twoStepMove;
+    }
+
+    private boolean isOneStepMove(Floor destinationFloor) {
+        return (destinationFloor.getRank() - getCurrentFloor().getRank() == 1) &&
+                    (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
     }
 
     private void updateFloorsStatus(Floor destinationFloor) {
+        Move move = new Move(getCurrentFloor(), destinationFloor);
+        addMove(move);
         getCurrentFloor().setOccupant(null);
         getCurrentFloor().setOccupyStatus(false);
         assignFloor(destinationFloor);
