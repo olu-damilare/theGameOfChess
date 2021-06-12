@@ -117,10 +117,10 @@ public class PawnTest {
         assertFalse(pawn.hasMadeFirstMove());
         Floor floor = board.getFloor(3, 3);
         assertNull(floor.getCurrentOccupant());
+
         Floor secondFloor = board.getFloor(5, 2);
         Floor thirdFloor = board.getFloor(1, 2);
         Floor fourthFloor = board.getFloor(2, 3);
-
 
         assertThrows(InvalidMoveException.class, ()-> pawn.move(floor, board));
         assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor, board));
@@ -128,64 +128,139 @@ public class PawnTest {
         assertThrows(InvalidMoveException.class, ()-> pawn.move(fourthFloor, board));
     }
 
-//    @Test
-//    void testThatPawnCanMoveOneStepForwardDiagonallyToCaptureEnemy(){
-//        Floor floor = new Floor(2, 2);
-//        Floor enemyFloor = new Floor(3, 1);
-//        Pawn pawn = new Pawn(BLACK, floor);
-//        Pawn enemyPawn = new Pawn(WHITE, enemyFloor);
-//
-//        assertTrue(floor.isOccupied());
-//        assertTrue(enemyFloor.isOccupied());
-//        assertEquals(floor, pawn.getCurrentFloor());
-//        assertEquals(enemyFloor, enemyPawn.getCurrentFloor());
-//        assertEquals(pawn, floor.getCurrentOccupant());
-//        assertEquals(enemyPawn, enemyFloor.getCurrentOccupant());
-//
-//        pawn.move(enemyFloor, board);
-//        assertEquals(enemyFloor, pawn.getCurrentFloor());
-//        assertTrue(enemyPawn.isCaptured());
-//        assertEquals(pawn, enemyFloor.getCurrentOccupant());
-//        assertFalse(floor.isOccupied());
-//        assertNull(floor.getCurrentOccupant());
-//    }
-//
-//    @Test
-//    void testThatPawnCanUndoMove(){
-//        Floor floor = new Floor(2, 2);
-//        assertEquals("b2", floor.toString());
-//        Floor secondFloor = new Floor(3, 2);
-//        assertEquals("b3", secondFloor.toString());
-//        Floor thirdFloor = new Floor(4, 2);
-//        assertEquals("b4", thirdFloor.toString());
-//
-//        Pawn pawn = new Pawn(BLACK, floor);
-//        assertTrue(floor.isOccupied());
-//        assertEquals(floor, pawn.getCurrentFloor());
-//        assertNull(secondFloor.getCurrentOccupant());
-//
-//        pawn.move(secondFloor, board);
-//        assertTrue(secondFloor.isOccupied());
-//        assertEquals(secondFloor, pawn.getCurrentFloor());
-//        assertNull(floor.getCurrentOccupant());
-//        Move move = new Move(floor, secondFloor);
-//        assertEquals("b2 b3", move.toString());
-//        assertEquals(move, pawn.getLastMove());
-//        pawn.move(thirdFloor, board);
-//        assertTrue(thirdFloor.isOccupied());
-//        assertEquals(thirdFloor, pawn.getCurrentFloor());
-//        assertNull(secondFloor.getCurrentOccupant());
-//        Move secondMove = new Move(secondFloor, thirdFloor);
-//        assertEquals(secondMove, pawn.getLastMove());
-//
-//        pawn.undoMove();
-//        assertTrue(secondFloor.isOccupied());
-//        assertEquals(secondFloor, pawn.getCurrentFloor());
-//        assertEquals(pawn, secondFloor.getCurrentOccupant());
-//        assertEquals(move, pawn.getLastMove());
-//
-//
-//    }
+    @Test
+    void testThatPawnCanMoveOneStepForwardDiagonallyToCaptureEnemy(){
+        Floor floor = board.getFloor(2, 2);
+        Floor enemyFloor = board.getFloor(3, 1);
+        Pawn pawn = new Pawn(BLACK, floor);
+        Pawn enemyPawn = new Pawn(WHITE, enemyFloor);
+
+        assertTrue(floor.isOccupied());
+        assertTrue(enemyFloor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertEquals(enemyFloor, enemyPawn.getCurrentFloor());
+        assertEquals(pawn, floor.getCurrentOccupant());
+        assertEquals(enemyPawn, enemyFloor.getCurrentOccupant());
+
+        pawn.move(enemyFloor, board);
+
+        assertEquals(enemyFloor, pawn.getCurrentFloor());
+        assertTrue(enemyPawn.isCaptured());
+        assertEquals(pawn, enemyFloor.getCurrentOccupant());
+        assertFalse(floor.isOccupied());
+        assertNull(floor.getCurrentOccupant());
+    }
+
+    @Test
+    void testThatPawnMovingOneStepForwardDiagonallyToUnoccupiedFloor_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(2, 2);
+        Floor secondFloor = board.getFloor(3, 1);
+        Pawn pawn = new Pawn(BLACK, floor);
+
+        assertTrue(floor.isOccupied());
+        assertFalse(secondFloor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertEquals(pawn, floor.getCurrentOccupant());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatPawnMovingOneStepForwardDiagonallyToFloorOccupiedByPieceWithMatchingColour_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(2, 2);
+        Floor secondFloor = board.getFloor(3, 1);
+        Pawn pawn = new Pawn(BLACK, floor);
+        Pawn enemyPawn = new Pawn(BLACK, secondFloor);
+
+        assertTrue(floor.isOccupied());
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertEquals(secondFloor, enemyPawn.getCurrentFloor());
+        assertEquals(pawn, floor.getCurrentOccupant());
+        assertEquals(enemyPawn, secondFloor.getCurrentOccupant());
+
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatPawnMovingOneStepForwardToOccupiedFloor_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(2, 2);
+        Floor secondFloor = board.getFloor(3, 2);
+        Pawn pawn = new Pawn(BLACK, floor);
+        Piece piece = new Pawn(BLACK, secondFloor);
+
+        assertTrue(floor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertEquals(pawn, floor.getCurrentOccupant());
+
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, piece.getCurrentFloor());
+        assertEquals(piece, secondFloor.getCurrentOccupant());
+
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatPawnMovingTwoStepsForwardToOccupiedFloorOnFirstMove_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(2, 2);
+        Floor secondFloor = board.getFloor(4, 2);
+        Pawn pawn = new Pawn(BLACK, floor);
+        Piece piece = new Pawn(BLACK, secondFloor);
+
+        assertFalse(pawn.hasMadeFirstMove());
+        assertTrue(floor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertEquals(pawn, floor.getCurrentOccupant());
+
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, piece.getCurrentFloor());
+        assertEquals(piece, secondFloor.getCurrentOccupant());
+
+        assertThrows(InvalidMoveException.class, ()-> pawn.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatPawnCanUndoMove(){
+        Floor floor = board.getFloor(2, 2);
+        assertEquals("b2", floor.toString());
+        Floor secondFloor = board.getFloor(3, 2);
+        assertEquals("b3", secondFloor.toString());
+        Floor thirdFloor = board.getFloor(4, 2);
+        assertEquals("b4", thirdFloor.toString());
+
+        Pawn pawn = new Pawn(BLACK, floor);
+        assertTrue(floor.isOccupied());
+        assertEquals(floor, pawn.getCurrentFloor());
+        assertEquals(pawn, floor.getCurrentOccupant());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        pawn.move(secondFloor, board);
+
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, pawn.getCurrentFloor());
+        assertNull(floor.getCurrentOccupant());
+
+        Move move = new Move(floor, secondFloor);
+        assertEquals("b2 b3", move.toString());
+        assertEquals(move, pawn.getLastMove());
+
+        pawn.move(thirdFloor, board);
+        assertTrue(thirdFloor.isOccupied());
+        assertEquals(thirdFloor, pawn.getCurrentFloor());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        Move secondMove = new Move(secondFloor, thirdFloor);
+        assertEquals("b3 b4", secondMove.toString());
+        assertEquals(secondMove, pawn.getLastMove());
+
+        pawn.undoMove();
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, pawn.getCurrentFloor());
+        assertEquals(pawn, secondFloor.getCurrentOccupant());
+        assertFalse(thirdFloor.isOccupied());
+        assertEquals(move, pawn.getLastMove());
+    }
 
 
 
