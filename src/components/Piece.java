@@ -67,6 +67,8 @@ public abstract class Piece {
     public void undoMove(){
         if(isCaptured)
             throw new CapturedPieceQueryException("Captured piece cannot be invoked");
+        getCurrentFloor().setOccupant(null);
+        getCurrentFloor().setOccupyStatus(false);
         Move lastMove = moves.pop();
         assignFloor(lastMove.getPreviousFloor());
     }
