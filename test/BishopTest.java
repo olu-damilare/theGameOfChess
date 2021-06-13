@@ -159,10 +159,53 @@ public class BishopTest {
     @Test
     void testThatBishopMovingToFloorOccupiedByPieceOfMatchingColour_throwsInvalidMoveException(){
         Floor floor = board.getFloor(4, 4);
-        Floor enemyFloor = board.getFloor(6, 6);
+        Floor secondFloor = board.getFloor(6, 6);
         Bishop bishop = new Bishop(BLACK, floor);
-        Piece teamMate = new Pawn(BLACK, enemyFloor);
+        Piece teamMate = new Pawn(BLACK, secondFloor);
 
-        assertThrows(InvalidMoveException.class, ()-> bishop.move(enemyFloor, board));
+        assertThrows(InvalidMoveException.class, ()-> bishop.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatBishopCanUndoMove(){
+        Floor floor = board.getFloor(2, 2);
+        assertEquals("b2", floor.toString());
+        Floor secondFloor = board.getFloor(3, 3);
+        assertEquals("c3", secondFloor.toString());
+        Floor thirdFloor = board.getFloor(4, 4);
+        assertEquals("d4", thirdFloor.toString());
+
+        Bishop bishop = new Bishop(BLACK, floor);
+        assertTrue(floor.isOccupied());
+        assertEquals(floor, bishop.getCurrentFloor());
+        assertEquals(bishop, floor.getCurrentOccupant());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        bishop.move(secondFloor, board);
+
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, bishop.getCurrentFloor());
+        assertNull(floor.getCurrentOccupant());
+
+        Move move = new Move(floor, secondFloor);
+        assertEquals("b2 c3", move.toString());
+        assertEquals(move, bishop.getLastMove());
+
+        bishop.move(thirdFloor, board);
+        assertTrue(thirdFloor.isOccupied());
+        assertEquals(thirdFloor, bishop.getCurrentFloor());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        Move secondMove = new Move(secondFloor, thirdFloor);
+        assertEquals("c3 d4", secondMove.toString());
+        assertEquals(secondMove, bishop.getLastMove());
+
+        bishop.undoMove();
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, bishop.getCurrentFloor());
+        assertEquals(bishop, secondFloor.getCurrentOccupant());
+        assertFalse(thirdFloor.isOccupied());
+        assertEquals(move, bishop.getLastMove());
+
     }
 }
