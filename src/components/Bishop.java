@@ -52,6 +52,8 @@ public class Bishop extends Piece {
     }
 
     private void updateFloorsStatus(Floor destinationFloor) {
+        Move move = new Move(getCurrentFloor(), destinationFloor);
+        addMove(move);
         getCurrentFloor().setOccupant(null);
         getCurrentFloor().setOccupyStatus(false);
         assignFloor(destinationFloor);
