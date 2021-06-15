@@ -207,4 +207,6 @@ public class QueenTest {
         assertThrows(InvalidMoveException.class, ()-> queen.move(seventhFloor, board));
         assertThrows(InvalidMoveException.class, ()-> queen.move(eighthFloor, board));
     }
+
+
 }
