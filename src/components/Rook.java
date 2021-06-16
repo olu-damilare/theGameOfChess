@@ -32,7 +32,7 @@ public class Rook extends Piece{
         updateFloorsStatus(destinationFloor);
     }
 
-    private void validateForMoveObstruction(Floor destinationFloor, Board board, boolean isNorthDirection, boolean isSouthDirection, boolean isEastDirection, boolean isWestDirection) {
+    public void validateForMoveObstruction(Floor destinationFloor, Board board, boolean isNorthDirection, boolean isSouthDirection, boolean isEastDirection, boolean isWestDirection) {
         if(isNorthDirection){
             checkForObstructionNorthWard(destinationFloor, board);
         }else if(isSouthDirection){
@@ -44,13 +44,6 @@ public class Rook extends Piece{
         }
     }
 
-    private void updateFloorsStatus(Floor destinationFloor) {
-        Move move = new Move(getCurrentFloor(), destinationFloor);
-        addMove(move);
-        getCurrentFloor().setOccupant(null);
-        getCurrentFloor().setOccupyStatus(false);
-        assignFloor(destinationFloor);
-    }
 
     private void checkForObstructionEastWard(Floor destinationFloor, Board board) {
         int rank = getCurrentFloor().getRank();
