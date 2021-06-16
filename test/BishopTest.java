@@ -208,4 +208,6 @@ public class BishopTest {
         assertEquals(move, bishop.getLastMove());
 
     }
+
+
 }
