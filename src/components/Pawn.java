@@ -68,13 +68,6 @@ public class Pawn extends Piece {
                     (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
     }
 
-    private void updateFloorsStatus(Floor destinationFloor) {
-        Move move = new Move(getCurrentFloor(), destinationFloor);
-        addMove(move);
-        getCurrentFloor().setOccupant(null);
-        getCurrentFloor().setOccupyStatus(false);
-        assignFloor(destinationFloor);
-    }
 
     public boolean hasMadeFirstMove(){
         return hasMadeFirstMove;
