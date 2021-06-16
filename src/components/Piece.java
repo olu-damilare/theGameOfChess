@@ -34,6 +34,14 @@ public abstract class Piece {
 
     }
 
+    public void updateFloorsStatus(Floor destinationFloor) {
+        Move move = new Move(getCurrentFloor(), destinationFloor);
+        addMove(move);
+        getCurrentFloor().setOccupant(null);
+        getCurrentFloor().setOccupyStatus(false);
+        assignFloor(destinationFloor);
+    }
+
     public Colour getColour() {
         if (isCaptured)
             throw new CapturedPieceQueryException("Captured piece cannot be invoked");
