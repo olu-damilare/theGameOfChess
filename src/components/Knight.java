@@ -13,14 +13,7 @@ public class Knight extends Piece{
 
     @Override
     public void move(Floor destinationFloor, Board board) {
-        boolean isTwoSquaresFurtherVertically = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank()) == 2 &&
-                Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile()) == 1;
-        boolean isOneSquareFurtherVertically = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank()) == 1 &&
-                Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile()) == 2;
-
-        if(!isOneSquareFurtherVertically && !isTwoSquaresFurtherVertically){
-            throw new InvalidMoveException("Invalid move");
-        }
+        validateMoveDirection(destinationFloor);
 
         if(destinationFloor.isOccupied()){
             if(destinationFloor.getCurrentOccupant().getColour() != getColour())
@@ -32,11 +25,15 @@ public class Knight extends Piece{
         updateFloorsStatus(destinationFloor);
     }
 
-    private void updateFloorsStatus(Floor destinationFloor) {
-        Move move = new Move(getCurrentFloor(), destinationFloor);
-        addMove(move);
-        getCurrentFloor().setOccupant(null);
-        getCurrentFloor().setOccupyStatus(false);
-        assignFloor(destinationFloor);
+    private void validateMoveDirection(Floor destinationFloor) {
+        boolean isTwoSquaresFurtherVertically = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank()) == 2 &&
+                Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile()) == 1;
+        boolean isOneSquareFurtherVertically = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank()) == 1 &&
+                Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile()) == 2;
+
+        if(!isOneSquareFurtherVertically && !isTwoSquaresFurtherVertically){
+            throw new InvalidMoveException("Invalid move");
+        }
     }
+
 }
