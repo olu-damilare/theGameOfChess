@@ -208,5 +208,158 @@ public class QueenTest {
         assertThrows(InvalidMoveException.class, ()-> queen.move(eighthFloor, board));
     }
 
+    @Test
+    void testThatQueenUpperLeftDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(5, 3);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(6, 2);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenUpperRightDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(5, 5);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(6, 6);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenLowerRightDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(3, 5);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(2, 6);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenLowerLeftDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(3, 3);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(2, 2);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenNorthWardDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(5, 4);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(6, 4);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenSouthWardDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(3, 4);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(2, 4);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenEastWardDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(4, 5);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(4, 6);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+    @Test
+    void testThatQueenWestWardDirectionMoveObstructedByAnotherPiece_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4,4);
+        Queen queen = new Queen(WHITE, floor);
+        Floor firstFloor = board.getFloor(4, 3);
+        Piece piece = new Knight(BLACK, firstFloor);
+        Floor secondFloor = board.getFloor(4, 2);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenCanCaptureEnemy(){
+        Floor floor = board.getFloor(4,4);
+        Floor enemyFloor = board.getFloor(6,2);
+        Queen queen = new Queen(BLACK, floor);
+        Piece enemy = new Bishop(WHITE, enemyFloor);
+
+        queen.move(enemyFloor, board);
+        assertTrue(enemy.isCaptured());
+        assertNull(floor.getCurrentOccupant());
+        assertFalse(floor.isOccupied());
+        assertEquals(queen, enemyFloor.getCurrentOccupant());
+    }
+
+    @Test
+    void testThatQueenMovingToFloorOccupiedByPieceOfMatchingColour_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(4, 4);
+        Floor secondFloor = board.getFloor(6, 2);
+        Queen queen = new Queen(BLACK, floor);
+        Piece teamMate = new Pawn(BLACK, secondFloor);
+
+        assertThrows(InvalidMoveException.class, ()-> queen.move(secondFloor, board));
+    }
+
+    @Test
+    void testThatQueenCanUndoMove(){
+        Floor floor = board.getFloor(2, 2);
+        assertEquals("b2", floor.toString());
+        Floor secondFloor = board.getFloor(3, 2);
+        assertEquals("b3", secondFloor.toString());
+        Floor thirdFloor = board.getFloor(4, 2);
+        assertEquals("b4", thirdFloor.toString());
+
+        Rook queen = new Rook(BLACK, floor);
+        assertTrue(floor.isOccupied());
+        assertEquals(floor, queen.getCurrentFloor());
+        assertEquals(queen, floor.getCurrentOccupant());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        queen.move(secondFloor, board);
+
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, queen.getCurrentFloor());
+        assertNull(floor.getCurrentOccupant());
+
+        Move move = new Move(floor, secondFloor);
+        assertEquals("b2 b3", move.toString());
+        assertEquals(move, queen.getLastMove());
+
+        queen.move(thirdFloor, board);
+        assertTrue(thirdFloor.isOccupied());
+        assertEquals(thirdFloor, queen.getCurrentFloor());
+        assertNull(secondFloor.getCurrentOccupant());
+
+        Move secondMove = new Move(secondFloor, thirdFloor);
+        assertEquals("b3 b4", secondMove.toString());
+        assertEquals(secondMove, queen.getLastMove());
+
+        queen.undoMove();
+        assertTrue(secondFloor.isOccupied());
+        assertEquals(secondFloor, queen.getCurrentFloor());
+        assertEquals(queen, secondFloor.getCurrentOccupant());
+        assertFalse(thirdFloor.isOccupied());
+        assertEquals(move, queen.getLastMove());
+
+    }
 
 }
