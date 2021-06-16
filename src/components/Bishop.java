@@ -51,16 +51,8 @@ public class Bishop extends Piece {
         }
     }
 
-    private void updateFloorsStatus(Floor destinationFloor) {
-        Move move = new Move(getCurrentFloor(), destinationFloor);
-        addMove(move);
-        getCurrentFloor().setOccupant(null);
-        getCurrentFloor().setOccupyStatus(false);
-        assignFloor(destinationFloor);
-    }
 
-
-    private void checkForObstructionInLowerRight(Floor destinationFloor, Board board) {
+    public void checkForObstructionInLowerRight(Floor destinationFloor, Board board) {
         int rankCounter = getCurrentFloor().getRank() - 1;
         int fileCounter = getCurrentFloor().getFile() + 1;
 
@@ -73,7 +65,7 @@ public class Bishop extends Piece {
         }
     }
 
-    private void checkForObstructionInLowerLeft(Floor destinationFloor, Board board) {
+    public void checkForObstructionInLowerLeft(Floor destinationFloor, Board board) {
         int rankCounter = getCurrentFloor().getRank() - 1;
         int fileCounter = getCurrentFloor().getFile() - 1;
 
@@ -86,7 +78,7 @@ public class Bishop extends Piece {
         }
     }
 
-    private void checkForObstructionInUpperRight(Floor destinationFloor, Board board) {
+    public void checkForObstructionInUpperRight(Floor destinationFloor, Board board) {
         int rankCounter = getCurrentFloor().getRank() + 1;
         int fileCounter = getCurrentFloor().getFile() + 1;
 
@@ -99,7 +91,7 @@ public class Bishop extends Piece {
         }
     }
 
-    private void checkForObstructionInUpperLeft(Floor destinationFloor, Board board) {
+    public void checkForObstructionInUpperLeft(Floor destinationFloor, Board board) {
         int rankCounter = getCurrentFloor().getRank() + 1;
         int fileCounter = getCurrentFloor().getFile() - 1;
 
