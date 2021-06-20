@@ -1,12 +1,11 @@
-import components.Board;
-import components.Floor;
-import components.King;
+import components.*;
 import gameExceptions.InvalidMoveException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static components.Colour.BLACK;
+import static components.Colour.WHITE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class KingTest {
@@ -158,6 +157,36 @@ public class KingTest {
         assertThrows(InvalidMoveException.class, ()-> king.move(seventhFloor, board));
         assertThrows(InvalidMoveException.class, ()-> king.move(eighthFloor, board));
 
+
+    }
+
+    @Test
+    void testThatKingCanMoveToCapturePiece(){
+        Floor floor = board.getFloor(1, 4);
+        Floor enemyFloor = board.getFloor(2, 3);
+        King king = new King(BLACK, floor);
+        Piece enemy = new Knight(WHITE, enemyFloor);
+        assertFalse(enemy.isCaptured());
+
+        king.move(enemyFloor, board);
+
+        assertTrue(enemy.isCaptured());
+
+    }
+
+    @Test
+    void testThatKingCanMovingToFloorOccupiedByPieceWithMatchingColour_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(1, 4);
+        Floor enemyFloor = board.getFloor(2, 3);
+        King king = new King(BLACK, floor);
+        Piece enemy = new Knight(BLACK, enemyFloor);
+        assertFalse(enemy.isCaptured());
+
+       assertThrows(InvalidMoveException.class, ()->  king.move(enemyFloor, board));
+    }
+
+    @Test
+    void testThatKingCanCastle(){
 
     }
 }
