@@ -274,4 +274,6 @@ public class KnightTest {
         assertEquals(move, knight.getLastMove());
 
     }
+
+
 }
