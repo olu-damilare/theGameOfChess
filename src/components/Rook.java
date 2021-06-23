@@ -3,6 +3,8 @@ package components;
 import gameExceptions.InvalidMoveException;
 
 public class Rook extends Piece{
+    private boolean hasMadeFirstMove;
+
     public Rook(Colour colour, Floor floor) {
         super(colour, floor);
     }
@@ -28,6 +30,9 @@ public class Rook extends Piece{
             if(destinationFloor.getCurrentOccupant().getColour() != getColour()){
                 capture(destinationFloor.getCurrentOccupant());
             }
+        }
+        if(!hasMadeFirstMove){
+            hasMadeFirstMove = true;
         }
         updateFloorsStatus(destinationFloor);
     }
@@ -119,5 +124,9 @@ public class Rook extends Piece{
         boolean isDiagonalMove = fileDifference == rankDifference;
         if(isDiagonalMove)
             throw new InvalidMoveException("Invalid move");
+    }
+
+    public boolean hasMadeFirstMove() {
+        return hasMadeFirstMove;
     }
 }
