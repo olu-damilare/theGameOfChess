@@ -186,7 +186,21 @@ public class KingTest {
     }
 
     @Test
-    void testThatKingCanCastle(){
+    void testThatKingCanCastleWhenKingAndCorrespondingRookHaveNotMadeFirstMove(){
+        Floor floor = board.getFloor(1, 5);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,1);
+        Rook rook = new Rook(BLACK, secondFloor);
+
+        assertFalse(king.hasMadeFirstMove());
+        assertFalse(rook.hasMadeFirstMove());
+
+        king.castle(rook, board);
+
+        assertTrue(king.hasMadeFirstMove());
+        assertTrue(rook.hasMadeFirstMove());
+        assertEquals(board.getFloor(1, 3), king.getCurrentFloor());
+        assertEquals(board.getFloor(1, 4), king.getCurrentFloor());
 
     }
 }
