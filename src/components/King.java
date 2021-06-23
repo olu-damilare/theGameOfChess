@@ -6,6 +6,7 @@ public class King extends Piece {
 
 
     private boolean isChecked;
+    private boolean hasMadeFirstMove;
 
     public King(Colour colour, Floor defaultFloor) {
         super(colour, defaultFloor);
@@ -22,7 +23,9 @@ public class King extends Piece {
             capture(destinationFloor.getCurrentOccupant());
 
         }
-
+        if (!hasMadeFirstMove) {
+            hasMadeFirstMove = true;
+        }
         updateFloorsStatus(destinationFloor);
     }
 
@@ -42,5 +45,13 @@ public class King extends Piece {
     
     public void setChecked(boolean checked){
         isChecked = checked;
+    }
+
+    public void castle(Rook rook, Board board) {
+
+    }
+
+    public boolean hasMadeFirstMove() {
+        return hasMadeFirstMove;
     }
 }
