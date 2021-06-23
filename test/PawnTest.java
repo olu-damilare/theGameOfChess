@@ -262,15 +262,7 @@ public class PawnTest {
         assertEquals(move, pawn.getLastMove());
     }
 
-    @Test
-    void testThatPawnCanCheckKing(){
-        Floor floor = board.getFloor(2, 2);
-        Floor enemyFloor = board.getFloor(3, 1);
-        Pawn pawn = new Pawn(BLACK, floor);
-        King enemyKing = new King(WHITE, enemyFloor);
 
-
-    }
 
 
 
