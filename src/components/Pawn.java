@@ -39,10 +39,6 @@ public class Pawn extends Piece {
             hasMadeFirstMove = true;
         }
         if(validCaptureMove){
-            if(enemy.getClass().toString().equals("components.King")) {
-                King king = (King)enemy;
-                king.setChecked(true);
-            }else
             capture(enemy);
         }
         updateFloorsStatus(destinationFloor);
