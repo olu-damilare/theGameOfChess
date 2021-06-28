@@ -186,7 +186,7 @@ public class KingTest {
     }
 
     @Test
-    void testThatKingCanCastleWhenKingAndCorrespondingRookHaveNotMadeFirstMove(){
+    void testThatKingCanCastleQueenSideWhenKingAndCorrespondingRookHaveNotMadeFirstMove(){
         Floor floor = board.getFloor(1, 5);
         King king = new King(BLACK, floor);
         Floor secondFloor = board.getFloor(1,1);
@@ -195,12 +195,82 @@ public class KingTest {
         assertFalse(king.hasMadeFirstMove());
         assertFalse(rook.hasMadeFirstMove());
 
-        king.castle(rook, board);
+        king.castle(rook, board );
 
         assertTrue(king.hasMadeFirstMove());
         assertTrue(rook.hasMadeFirstMove());
         assertEquals(board.getFloor(1, 3), king.getCurrentFloor());
-        assertEquals(board.getFloor(1, 4), king.getCurrentFloor());
+        assertEquals(board.getFloor(1, 4), rook.getCurrentFloor());
+        assertTrue(king.hasCastled());
+        assertTrue(rook.hasCastled());
 
+    }
+
+    @Test
+    void testThatKingCanCastleKingSideWhenKingAndCorrespondingRookHaveNotMadeFirstMove(){
+        Floor floor = board.getFloor(1, 5);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,8);
+        Rook rook = new Rook(BLACK, secondFloor);
+
+        assertFalse(king.hasMadeFirstMove());
+        assertFalse(rook.hasMadeFirstMove());
+
+        king.castle(rook, board );
+
+        assertTrue(king.hasMadeFirstMove());
+        assertTrue(rook.hasMadeFirstMove());
+        assertEquals(board.getFloor(1, 7), king.getCurrentFloor());
+        assertEquals(board.getFloor(1, 6), rook.getCurrentFloor());
+        assertTrue(king.hasCastled());
+        assertTrue(rook.hasCastled());
+
+    }
+
+    @Test
+    void testThatKingCanCastleWhenKingHasMadeFirstMove_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(1, 5);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,8);
+        Rook rook = new Rook(BLACK, secondFloor);
+
+        assertFalse(king.hasMadeFirstMove());
+        assertFalse(rook.hasMadeFirstMove());
+
+        Floor kingDestinationFloor = board.getFloor(1,4);
+        king.move(kingDestinationFloor, board);
+
+        assertTrue(king.hasMadeFirstMove());
+
+       assertThrows(InvalidMoveException.class, ()-> king.castle(rook, board ));
+
+    }
+
+    @Test
+    void testThatKingCanCastleWhenCorrespondingRookHasMadeFirstMove_throwsInvalidMoveException(){
+        Floor floor = board.getFloor(1, 5);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,8);
+        Rook rook = new Rook(BLACK, secondFloor);
+
+        assertFalse(king.hasMadeFirstMove());
+        assertFalse(rook.hasMadeFirstMove());
+
+        Floor rookDestinationFloor = board.getFloor(1,7);
+        rook.move(rookDestinationFloor, board);
+
+        assertTrue(rook.hasMadeFirstMove());
+        assertThrows(InvalidMoveException.class, ()-> king.castle(rook, board ));
+    }
+
+    @Test
+    void testThatPawnCanCheckKing(){
+        Floor floor = board.getFloor(1, 5);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(2,6);
+        Pawn pawn = new Pawn(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
     }
 }
