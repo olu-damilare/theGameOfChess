@@ -4,6 +4,7 @@ import gameExceptions.InvalidMoveException;
 
 public class Rook extends Piece{
     private boolean hasMadeFirstMove;
+    private boolean hasCastled;
 
     public Rook(Colour colour, Floor floor) {
         super(colour, floor);
@@ -128,5 +129,17 @@ public class Rook extends Piece{
 
     public boolean hasMadeFirstMove() {
         return hasMadeFirstMove;
+    }
+
+
+    public boolean hasCastled() {
+        return hasCastled;
+    }
+
+    public void castle(int file, Board board) {
+        Floor floor = board.getFloor(getCurrentFloor().getRank(), file);
+        assignFloor(floor);
+        hasMadeFirstMove = true;
+        hasCastled = true;
     }
 }
