@@ -273,4 +273,49 @@ public class KingTest {
         king.scanForChecked(board);
         assertTrue(king.isChecked());
     }
+
+    @Test
+    void testThatBishopCanCheckKingFromUpperLeftDirection(){
+        Floor floor = board.getFloor(1, 5);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(4,2);
+        Bishop bishop = new Bishop(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatBishopCanCheckKingFromUpperRightDirection(){
+        Floor floor = board.getFloor(1, 5);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(4,8);
+        Bishop bishop = new Bishop(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatBishopCanCheckKingFromLowerRightDirection(){
+        Floor floor = board.getFloor(4, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,7);
+        Bishop bishop = new Bishop(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatBishopCanCheckKingFromLowerLeftDirection(){
+        Floor floor = board.getFloor(4, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,1);
+        Bishop bishop = new Bishop(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
 }
