@@ -4,7 +4,7 @@ import game.board.Board;
 import game.properties.Colour;
 import game.board.Floor;
 import game.properties.Position;
-import gameExceptions.InvalidMoveException;
+import game.gameExceptions.InvalidMoveException;
 
 public class Pawn extends Piece {
 
