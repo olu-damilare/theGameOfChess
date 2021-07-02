@@ -1,5 +1,9 @@
-package components;
+package game.pieces;
 
+import game.board.Board;
+import game.properties.Colour;
+import game.board.Floor;
+import game.properties.Position;
 import gameExceptions.InvalidMoveException;
 
 public class Knight extends Piece{
