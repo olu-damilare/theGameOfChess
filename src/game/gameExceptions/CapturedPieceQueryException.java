@@ -1,4 +1,4 @@
-package gameExceptions;
+package game.gameExceptions;
 
 public class CapturedPieceQueryException extends ChessGameExceptions{
     public CapturedPieceQueryException(String message) {
