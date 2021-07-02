@@ -1,10 +1,15 @@
-import components.*;
+import game.board.Board;
+import game.board.Floor;
+import game.pieces.Bishop;
+import game.pieces.Knight;
+import game.pieces.Piece;
+import game.properties.Move;
 import gameExceptions.InvalidMoveException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static components.Colour.BLACK;
-import static components.Colour.WHITE;
+import static game.properties.Colour.BLACK;
+import static game.properties.Colour.WHITE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class KnightTest {
