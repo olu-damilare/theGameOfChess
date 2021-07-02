@@ -1,9 +1,15 @@
-import components.*;
+import game.board.Board;
+import game.board.Floor;
+import game.pieces.Bishop;
+import game.pieces.Pawn;
+import game.pieces.Piece;
+import game.pieces.Rook;
+import game.properties.Move;
 import gameExceptions.InvalidMoveException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static components.Colour.*;
+import static game.properties.Colour.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RookTest {
