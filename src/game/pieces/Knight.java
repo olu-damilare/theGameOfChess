@@ -4,7 +4,7 @@ import game.board.Board;
 import game.properties.Colour;
 import game.board.Floor;
 import game.properties.Position;
-import gameExceptions.InvalidMoveException;
+import game.gameExceptions.InvalidMoveException;
 
 public class Knight extends Piece{
     public Knight(Colour colour, Position defaultPosition) {
