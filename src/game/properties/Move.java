@@ -1,4 +1,6 @@
-package components;
+package game.properties;
+
+import game.board.Floor;
 
 import java.util.Objects;
 
