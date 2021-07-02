@@ -1,5 +1,8 @@
-package components;
+package game.board;
 
+
+import game.pieces.Piece;
+import game.properties.Position;
 
 public class Floor {
 
