@@ -318,4 +318,93 @@ public class KingTest {
         assertTrue(king.isChecked());
     }
 
+    @Test
+    void testThatKnightCanCheckKingFromOneSquareForwardAndTwoSquaresToTheLeft(){
+        Floor floor = board.getFloor(1, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(2,2);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatKnightCanCheckKingFromOneSquareBackwardAndTwoSquaresToTheLeft(){
+        Floor floor = board.getFloor(4, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(3,2);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatKnightCanCheckKingFromTwoSquaresForwardAndOneSquareToTheLeft(){
+        Floor floor = board.getFloor(1, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(3,3);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatKnightCanCheckKingFromTwoSquaresBackwardAndOneSquareToTheLeft(){
+        Floor floor = board.getFloor(4, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(2,3);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatKnightCanCheckKingFromTwoSquaresForwardAndOneSquareToTheRight(){
+        Floor floor = board.getFloor(1, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(3,5);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatKnightCanCheckKingFromTwoSquaresBackwardAndOneSquareToTheRight(){
+        Floor floor = board.getFloor(4, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(2,5);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatKnightCanCheckKingFromOneSquareForwardAndTwoSquaresToTheRight(){
+        Floor floor = board.getFloor(1, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(2,6);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatKnightCanCheckKingFromOneSquareBackwardAndTwoSquaresToTheRight(){
+        Floor floor = board.getFloor(4, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(3,6);
+        Knight knight = new Knight(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+
 }
