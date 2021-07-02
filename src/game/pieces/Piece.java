@@ -1,5 +1,10 @@
-package components;
+package game.pieces;
 
+import game.board.Board;
+import game.board.Floor;
+import game.properties.Colour;
+import game.properties.Move;
+import game.properties.Position;
 import gameExceptions.CapturedPieceQueryException;
 
 import java.util.Stack;
