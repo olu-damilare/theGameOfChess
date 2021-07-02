@@ -4,7 +4,7 @@ import game.pieces.Bishop;
 import game.pieces.Pawn;
 import game.pieces.Piece;
 import game.properties.Move;
-import gameExceptions.InvalidMoveException;
+import game.gameExceptions.InvalidMoveException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
