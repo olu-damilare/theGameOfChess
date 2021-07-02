@@ -1,4 +1,7 @@
-package components;
+package game.pieces;
+
+import game.board.Board;
+import game.board.Floor;
 
 public class KingChecker {
 
@@ -8,13 +11,13 @@ public class KingChecker {
             Floor upperRightFloor = board.getFloor(king.getCurrentFloor().getRank() + 1, king.getCurrentFloor().getFile() + 1);
             if (upperRightFloor.isOccupied()) {
                 boolean upperRightCheck = upperRightFloor.getCurrentOccupant().getColour() != king.getColour() &&
-                        upperRightFloor.getCurrentOccupant().getClass().toString().equals("class components.Pawn");
+                        upperRightFloor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Pawn");
                 if (upperRightCheck) {
                     king.setChecked(true);
                 }
             } else if (upperLeftFloor.isOccupied()) {
                 boolean upperLeftCheck = upperLeftFloor.getCurrentOccupant().getColour() != king.getColour() &&
-                        upperLeftFloor.getCurrentOccupant().getClass().toString().equals("class components.Pawn");
+                        upperLeftFloor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Pawn");
                 if (upperLeftCheck) {
                     king.setChecked(true);
                 }
@@ -32,7 +35,7 @@ public class KingChecker {
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -53,7 +56,7 @@ public class KingChecker {
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -74,7 +77,7 @@ public class KingChecker {
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -96,7 +99,7 @@ public class KingChecker {
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -158,7 +161,7 @@ public class KingChecker {
         Floor floor = board.getFloor(rank, file);
         if (floor.isOccupied())
             if (floor.getCurrentOccupant().getColour() != king.getColour())
-                if (floor.getCurrentOccupant().getClass().toString().equals("class components.Knight"))
+                if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Knight"))
                     king.setChecked(true);
     }
 
