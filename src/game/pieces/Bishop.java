@@ -1,6 +1,10 @@
-package components;
+package game.pieces;
 
-import gameExceptions.InvalidMoveException;
+import game.board.Board;
+import game.properties.Colour;
+import game.board.Floor;
+import game.properties.Position;
+import game.gameExceptions.InvalidMoveException;
 
 public class Bishop extends Piece {
     public Bishop(Colour colour, Position defaultPosition) {

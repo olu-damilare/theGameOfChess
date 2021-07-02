@@ -1,6 +1,9 @@
-package components;
+package game.pieces;
 
-import gameExceptions.InvalidMoveException;
+import game.board.Board;
+import game.properties.Colour;
+import game.board.Floor;
+import game.gameExceptions.InvalidMoveException;
 
 public class King extends Piece {
 
