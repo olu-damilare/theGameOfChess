@@ -1,5 +1,8 @@
-package components;
+package game.pieces;
 
+import game.board.Board;
+import game.properties.Colour;
+import game.board.Floor;
 import gameExceptions.InvalidMoveException;
 
 public class Rook extends Piece{
