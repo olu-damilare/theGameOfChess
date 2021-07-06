@@ -91,6 +91,7 @@ public class King extends Piece {
         observer.scanForPawnCheck(board, this);
         observer.scanForBishopCheck(board, this);
         observer.scanForKnightCheck(board, this);
+        observer.scanForRookCheck(board, this);
 
 
     }
