@@ -408,5 +408,91 @@ public class KingTest {
         assertTrue(king.isChecked());
     }
 
+    @Test
+    void testThatRookCanCheckKingFromNorthDirection(){
+        Floor floor = board.getFloor(1, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(5,4);
+        Rook rook = new Rook(WHITE, secondFloor);
 
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatRookCanCheckKingFromSouthDirection(){
+        Floor floor = board.getFloor(8, 4);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(5,4);
+        Rook rook = new Rook(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatRookCanCheckKingFromEastDirection(){
+        Floor floor = board.getFloor(1, 2);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,7);
+        Rook rook = new Rook(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatRookCanCheckKingFromWestDirection(){
+        Floor floor = board.getFloor(1, 8);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1,2);
+        Rook rook = new Rook(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatQueenCanCheckKingFromNorthDirection(){
+        Floor floor = board.getFloor(1, 1);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(8, 1);
+        Queen queen = new Queen(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatQueenCanCheckKingFromSouthDirection(){
+        Floor floor = board.getFloor(8, 1);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(1, 1);
+        Queen queen = new Queen(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatQueenCanCheckKingFromWestDirection(){
+        Floor floor = board.getFloor(2, 1);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(2, 5);
+        Queen queen = new Queen(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
+
+    @Test
+    void testThatQueenCanCheckKingFromEastDirection(){
+        Floor floor = board.getFloor(2, 6);
+        King king = new King(BLACK, floor);
+        Floor secondFloor = board.getFloor(2, 2);
+        Queen queen = new Queen(WHITE, secondFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+    }
 }
