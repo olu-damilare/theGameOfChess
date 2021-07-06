@@ -11,13 +11,13 @@ public class KingChecker {
             Floor upperRightFloor = board.getFloor(king.getCurrentFloor().getRank() + 1, king.getCurrentFloor().getFile() + 1);
             if (upperRightFloor.isOccupied()) {
                 boolean upperRightCheck = upperRightFloor.getCurrentOccupant().getColour() != king.getColour() &&
-                        upperRightFloor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Pawn");
+                        upperRightFloor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Pawn");
                 if (upperRightCheck) {
                     king.setChecked(true);
                 }
             } else if (upperLeftFloor.isOccupied()) {
                 boolean upperLeftCheck = upperLeftFloor.getCurrentOccupant().getColour() != king.getColour() &&
-                        upperLeftFloor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Pawn");
+                        upperLeftFloor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Pawn");
                 if (upperLeftCheck) {
                     king.setChecked(true);
                 }
@@ -35,7 +35,7 @@ public class KingChecker {
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -51,12 +51,12 @@ public class KingChecker {
             int rankCounter = king.getCurrentFloor().getRank() + 1;
             int fileCounter = king.getCurrentFloor().getFile() + 1;
 
-            while (fileCounter <= 8) {
+            while (fileCounter <= 8 && rankCounter <= 8) {
                 Floor floor = board.getFloor(rankCounter, fileCounter);
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -72,12 +72,12 @@ public class KingChecker {
             int rankCounter = king.getCurrentFloor().getRank() - 1;
             int fileCounter = king.getCurrentFloor().getFile() + 1;
 
-            while (rankCounter >= 1) {
+            while (rankCounter >= 1 && fileCounter <= 8) {
                 Floor floor = board.getFloor(rankCounter, fileCounter);
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -94,12 +94,12 @@ public class KingChecker {
             int rankCounter = king.getCurrentFloor().getRank() - 1;
             int fileCounter = king.getCurrentFloor().getFile() - 1;
 
-            while (rankCounter >= 1) {
+            while (rankCounter >= 1 && fileCounter >= 1) {
                 Floor floor = board.getFloor(rankCounter, fileCounter);
                 if (floor.isOccupied()) {
                     if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                         break;
-                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Bishop")) {
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Bishop")) {
                         king.setChecked(true);
                         break;
                     }
@@ -161,7 +161,7 @@ public class KingChecker {
         Floor floor = board.getFloor(rank, file);
         if (floor.isOccupied())
             if (floor.getCurrentOccupant().getColour() != king.getColour())
-                if (floor.getCurrentOccupant().getClass().toString().equals("class components.pieces.Knight"))
+                if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Knight"))
                     king.setChecked(true);
     }
 
@@ -215,4 +215,98 @@ public class KingChecker {
         scanForKnightCheckFromTwoSquaresBackwardAndOneSquareToTheLeft(board, king);
         scanForKnightCheckFromOneSquareBackwardAndTwoSquaresToTheLeft(board, king);
     }
+
+    public void scanForRookCheck(Board board, King king) {
+            scanForRookCheckNorthward(board, king);
+            scanForRookCheckSouthward(board, king);
+            scanForRookCheckEastward(board, king);
+            scanForRookCheckWestward(board, king);
+    }
+
+    private void scanForRookCheckNorthward(Board board, King king){
+        if(king.getCurrentFloor().getRank() < 8) {
+            int rankCounter = king.getCurrentFloor().getRank() + 1;
+            int file = king.getCurrentFloor().getFile();
+
+            while (rankCounter <= 8) {
+                Floor floor = board.getFloor(rankCounter, file);
+                if (floor.isOccupied()) {
+                    if (floor.getCurrentOccupant().getColour() == king.getColour()) {
+                        break;
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Rook") ||
+                            floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Queen") ) {
+                        king.setChecked(true);
+                        break;
+                    }
+                }
+                rankCounter++;
+            }
+        }
+      }
+
+    private void scanForRookCheckSouthward(Board board, King king){
+        if(king.getCurrentFloor().getRank() > 1) {
+            int rankCounter = king.getCurrentFloor().getRank() - 1;
+            int file = king.getCurrentFloor().getFile();
+
+            while (rankCounter >= 1) {
+                Floor floor = board.getFloor(rankCounter, file);
+                if (floor.isOccupied()) {
+                    if (floor.getCurrentOccupant().getColour() == king.getColour()) {
+                        break;
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Rook") ||
+                            floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Queen") ) {
+                        king.setChecked(true);
+                        break;
+                    }
+                }
+                rankCounter--;
+            }
+        }
+    }
+
+    private void scanForRookCheckEastward(Board board, King king){
+        if(king.getCurrentFloor().getFile() < 8) {
+            int rank = king.getCurrentFloor().getRank();
+            int fileCounter = king.getCurrentFloor().getFile() + 1;
+
+            while (fileCounter <= 8) {
+                Floor floor = board.getFloor(rank, fileCounter);
+                if (floor.isOccupied()) {
+                    if (floor.getCurrentOccupant().getColour() == king.getColour()) {
+                        break;
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Rook") ||
+                            floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Queen") ) {
+                        king.setChecked(true);
+                        break;
+                    }
+                }
+                fileCounter++;
+            }
+        }
+    }
+
+    private void scanForRookCheckWestward(Board board, King king){
+        if(king.getCurrentFloor().getFile() > 1) {
+            int rank = king.getCurrentFloor().getRank();
+            int fileCounter = king.getCurrentFloor().getFile() - 1;
+
+            while (fileCounter >= 1) {
+                Floor floor = board.getFloor(rank, fileCounter);
+                if (floor.isOccupied()) {
+                    if (floor.getCurrentOccupant().getColour() == king.getColour()) {
+                        break;
+                    } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Rook") ||
+                            floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Queen") ) {
+                        king.setChecked(true);
+                        break;
+                    }
+                }
+                fileCounter--;
+            }
+        }
+    }
+
+
 }
+
