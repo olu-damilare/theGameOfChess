@@ -2,6 +2,7 @@ import game.board.Board;
 import game.board.Floor;
 import game.pieces.*;
 import game.gameExceptions.InvalidMoveException;
+import game.pieces.king.King;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
