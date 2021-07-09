@@ -1,6 +1,9 @@
-package game.pieces;
+package game.pieces.king;
 
 import game.board.Board;
+import game.pieces.Piece;
+import game.pieces.Rook;
+import game.pieces.king.observers.KingObserver;
 import game.properties.Colour;
 import game.board.Floor;
 import game.gameExceptions.InvalidMoveException;
@@ -10,10 +13,12 @@ public class King extends Piece {
     private boolean isChecked;
     private boolean hasMadeFirstMove;
     private boolean hasCastled;
-    private KingChecker observer = new KingChecker();
+    private final KingObserver observer;
 
     public King(Colour colour, Floor defaultFloor) {
+
         super(colour, defaultFloor);
+        observer = new KingObserver();
     }
 
     @Override
