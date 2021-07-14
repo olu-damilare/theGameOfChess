@@ -11,7 +11,7 @@ public class BishopObserver {
             int rankCounter = king.getCurrentFloor().getRank() + 1;
             int fileCounter = king.getCurrentFloor().getFile() - 1;
 
-            while (fileCounter >= 1 ) {
+            while (fileCounter >= 1 && rankCounter < 8) {
                 Floor floor = board.getFloor(rankCounter, fileCounter);
                 if (observeFloor(king, floor)) break;
                 rankCounter++;
