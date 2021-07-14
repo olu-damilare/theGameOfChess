@@ -496,4 +496,46 @@ public class KingTest {
         king.scanForChecked(board);
         assertTrue(king.isChecked());
     }
+
+    @Test
+    void testThatKingCanBeCheckMated_1(){
+        Floor kingFloor = board.getFloor(7,8);
+        Floor knightFloor = board.getFloor(7,5);
+        Floor rookFloor = board.getFloor(3, 8);
+        Floor pawnFloor = board.getFloor(7, 7);
+
+        King king = new King(BLACK, kingFloor);
+        Knight knight = new Knight(WHITE, knightFloor);
+        Rook rook  = new Rook(WHITE, rookFloor);
+        Pawn pawn = new Pawn(BLACK, pawnFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+
+        king.counterCheckMove(board);
+        assertTrue(king.isCheckMated());
+
+
+    }
+
+    @Test
+    void testThatKingCanBeCheckMated_2(){
+        Floor kingFloor = board.getFloor(7,1);
+        Floor knightFloor = board.getFloor(7,4);
+        Floor rookFloor = board.getFloor(3, 1);
+        Floor pawnFloor = board.getFloor(7, 2);
+
+        King king = new King(BLACK, kingFloor);
+        Knight knight = new Knight(WHITE, knightFloor);
+        Rook rook  = new Rook(WHITE, rookFloor);
+        Pawn pawn = new Pawn(BLACK, pawnFloor);
+
+        king.scanForChecked(board);
+        assertTrue(king.isChecked());
+
+        king.counterCheckMove(board);
+        assertTrue(king.isCheckMated());
+
+
+    }
 }
