@@ -1,6 +1,7 @@
 package game.pieces.king;
 
 import game.board.Board;
+import game.gameExceptions.ChessGameExceptions;
 import game.pieces.Piece;
 import game.pieces.Rook;
 import game.pieces.king.observers.KingObserver;
@@ -14,6 +15,7 @@ public class King extends Piece {
     private boolean hasMadeFirstMove;
     private boolean hasCastled;
     private final KingObserver observer;
+    private boolean isCheckMated;
 
     public King(Colour colour, Floor defaultFloor) {
 
@@ -97,11 +99,62 @@ public class King extends Piece {
         observer.scanForBishopCheck(board, this);
         observer.scanForKnightCheck(board, this);
         observer.scanForRookCheck(board, this);
-
-
     }
 
     public void setChecked(boolean isChecked) {
         this.isChecked = isChecked;
     }
-}
+
+    public boolean isCheckMated() {
+        return isCheckMated;
+    }
+
+    public void counterCheckMove(Board board){
+        Floor[] validFloors;
+        int rank = getCurrentFloor().getRank();
+        int file = getCurrentFloor().getFile();
+
+
+
+        if(isChecked()){
+//            if((getCurrentFloor().getRank() > 1 && getCurrentFloor().getRank() < 8) ||
+//                    (getCurrentFloor().getFile() > 1 && getCurrentFloor().getFile() < 8)){
+//                validFloors = new Floor[8];
+//
+//            }else {
+                validFloors = new Floor[5];
+
+                if(getCurrentFloor().getFile() == 8){
+                    Floor[] rightSidePositionValidFloors = {board.getFloor(rank + 1, file), board.getFloor(rank + 1, file - 1),
+                            board.getFloor(rank, file - 1), board.getFloor(rank - 1, file - 1),
+                            board.getFloor(rank - 1, file)};
+                    for (int i = 0; i < rightSidePositionValidFloors.length; i++) {
+                        try {
+                            move(rightSidePositionValidFloors[i], board);
+                            scanForChecked(board);
+                            if(isChecked()) undoMove();
+                            else break;
+                        }catch(ChessGameExceptions ignored){}
+                    }
+                    if(isChecked()) isCheckMated = true;
+                }else if(getCurrentFloor().getFile() == 1){
+                    Floor[] leftSidePositionValidFloors = {board.getFloor(rank + 1, file), board.getFloor(rank + 1, file + 1),
+                            board.getFloor(rank, file + 1), board.getFloor(rank - 1, file + 1),
+                            board.getFloor(rank - 1, file)};
+                for (int i = 0; i < leftSidePositionValidFloors.length; i++) {
+                    try {
+                        move(leftSidePositionValidFloors[i], board);
+                        scanForChecked(board);
+                        if(isChecked()) undoMove();
+                        else break;
+                    }catch(ChessGameExceptions ignored){}
+                }
+                if(isChecked()) isCheckMated = true;
+            }
+            }
+
+        }
+    }
+
+
+
