@@ -110,51 +110,164 @@ public class King extends Piece {
     }
 
     public void counterCheckMove(Board board){
-        Floor[] validFloors;
         int rank = getCurrentFloor().getRank();
         int file = getCurrentFloor().getFile();
 
+        if(isChecked()) {
+            if (file == 8 && (rank > 1 && rank < 8)) {
+                scanForRightSideCheckMate(board, rank, file);
+            } else if (file == 1 && (rank > 1 && rank < 8)) {
+                scanForLeftSideCheckMate(board, rank, file);
 
-
-        if(isChecked()){
-//            if((getCurrentFloor().getRank() > 1 && getCurrentFloor().getRank() < 8) ||
-//                    (getCurrentFloor().getFile() > 1 && getCurrentFloor().getFile() < 8)){
-//                validFloors = new Floor[8];
-//
-//            }else {
-                validFloors = new Floor[5];
-
-                if(getCurrentFloor().getFile() == 8){
-                    Floor[] rightSidePositionValidFloors = {board.getFloor(rank + 1, file), board.getFloor(rank + 1, file - 1),
-                            board.getFloor(rank, file - 1), board.getFloor(rank - 1, file - 1),
-                            board.getFloor(rank - 1, file)};
-                    for (int i = 0; i < rightSidePositionValidFloors.length; i++) {
-                        try {
-                            move(rightSidePositionValidFloors[i], board);
-                            scanForChecked(board);
-                            if(isChecked()) undoMove();
-                            else break;
-                        }catch(ChessGameExceptions ignored){}
-                    }
-                    if(isChecked()) isCheckMated = true;
-                }else if(getCurrentFloor().getFile() == 1){
-                    Floor[] leftSidePositionValidFloors = {board.getFloor(rank + 1, file), board.getFloor(rank + 1, file + 1),
-                            board.getFloor(rank, file + 1), board.getFloor(rank - 1, file + 1),
-                            board.getFloor(rank - 1, file)};
-                for (int i = 0; i < leftSidePositionValidFloors.length; i++) {
-                    try {
-                        move(leftSidePositionValidFloors[i], board);
-                        scanForChecked(board);
-                        if(isChecked()) undoMove();
-                        else break;
-                    }catch(ChessGameExceptions ignored){}
-                }
-                if(isChecked()) isCheckMated = true;
-            }
-            }
-
+            } else if (rank == 8 && (file > 1 && file < 8)) {
+                scanForTopSideCheckMate(board, rank, file);
+            }else if (rank == 1 && (file > 1 && file < 8)) {
+                scanForDownSideCheckMate(board, rank, file);
+            }else if(rank == 8 && file == 8){
+                scanForTopRightEdgeCheckMate(board, rank, file);
+            }else if(rank == 1 && file == 1){
+                scanForBottomLeftEdgeCheckMate(board, rank, file);
+            }else if(rank == 8 && file == 1){
+                scanForTopLeftEdgeCheckMate(board, rank, file);
+            }else if(rank == 1 && file == 8){
+                scanForBottomRightEdgeCheckMate(board, rank, file);
+            }else scanForCentreBoardCheckMate(board, rank, file);
         }
     }
+
+    private void scanForDownSideCheckMate(Board board, int rank, int file) {
+        Floor[] downSidePositionValidFloors = {board.getFloor(rank, file + 1), board.getFloor(rank + 1, file + 1),
+                board.getFloor(rank + 1, file), board.getFloor(rank + 1, file - 1),
+                board.getFloor(rank, file - 1)};
+        for (int i = 0; i < downSidePositionValidFloors.length; i++) {
+            try {
+                move(downSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForTopSideCheckMate(Board board, int rank, int file) {
+        Floor[] topSidePositionValidFloors = {board.getFloor(rank, file + 1), board.getFloor(rank - 1, file + 1),
+                board.getFloor(rank - 1, file), board.getFloor(rank - 1, file - 1),
+                board.getFloor(rank, file - 1)};
+        for (int i = 0; i < topSidePositionValidFloors.length; i++) {
+            try {
+                move(topSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForLeftSideCheckMate(Board board, int rank, int file) {
+        Floor[] leftSidePositionValidFloors = {board.getFloor(rank + 1, file), board.getFloor(rank + 1, file + 1),
+                board.getFloor(rank, file + 1), board.getFloor(rank - 1, file + 1),
+                board.getFloor(rank - 1, file)};
+        for (int i = 0; i < leftSidePositionValidFloors.length; i++) {
+            try {
+                move(leftSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForRightSideCheckMate(Board board, int rank, int file) {
+        Floor[] rightSidePositionValidFloors = {board.getFloor(rank + 1, file), board.getFloor(rank + 1, file - 1),
+                board.getFloor(rank, file - 1), board.getFloor(rank - 1, file - 1),
+                board.getFloor(rank - 1, file)};
+        for (int i = 0; i < rightSidePositionValidFloors.length; i++) {
+            try {
+                move(rightSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForTopRightEdgeCheckMate(Board board, int rank, int file) {
+        Floor[] rightSidePositionValidFloors = {board.getFloor(rank, file - 1), board.getFloor(rank - 1, file - 1),
+                board.getFloor(rank - 1, file)};
+        for (int i = 0; i < rightSidePositionValidFloors.length; i++) {
+            try {
+                move(rightSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForBottomLeftEdgeCheckMate(Board board, int rank, int file) {
+        Floor[] rightSidePositionValidFloors = {board.getFloor(rank, file + 1), board.getFloor(rank + 1, file + 1),
+                board.getFloor(rank + 1, file)};
+        for (int i = 0; i < rightSidePositionValidFloors.length; i++) {
+            try {
+                move(rightSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForTopLeftEdgeCheckMate(Board board, int rank, int file) {
+        Floor[] rightSidePositionValidFloors = {board.getFloor(rank, file + 1), board.getFloor(rank - 1, file + 1),
+                board.getFloor(rank - 1, file)};
+        for (int i = 0; i < rightSidePositionValidFloors.length; i++) {
+            try {
+                move(rightSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForBottomRightEdgeCheckMate(Board board, int rank, int file) {
+        Floor[] rightSidePositionValidFloors = {board.getFloor(rank, file - 1), board.getFloor(rank + 1, file - 1),
+                board.getFloor(rank + 1, file)};
+        for (int i = 0; i < rightSidePositionValidFloors.length; i++) {
+            try {
+                move(rightSidePositionValidFloors[i], board);
+                scanForChecked(board);
+                if (isChecked()) undoMove();
+                else break;
+            } catch (ChessGameExceptions ignored) {
+            }
+        }
+        if (isChecked()) isCheckMated = true;
+    }
+
+    private void scanForCentreBoardCheckMate(Board board, int rank, int file){
+        scanForTopSideCheckMate(board, rank, file);
+        scanForDownSideCheckMate(board, rank, file);
+        if (isChecked()) isCheckMated = true;
+
+    }
+
+
+}
 
 
 
