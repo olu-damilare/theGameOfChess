@@ -1,12 +1,12 @@
 package game.pieces.king;
 
-import game.board.Board;
+import game.components.board.Board;
 import game.gameExceptions.ChessGameExceptions;
 import game.pieces.Piece;
 import game.pieces.Rook;
 import game.pieces.king.observers.KingObserver;
 import game.properties.Colour;
-import game.board.Floor;
+import game.components.board.Floor;
 import game.gameExceptions.InvalidMoveException;
 
 public class King extends Piece {
@@ -60,15 +60,14 @@ public class King extends Piece {
     }
 
     public void castle(Rook rook, Board board) {
-        boolean queenSizeCastle = getCurrentFloor().getFile() > rook.getCurrentFloor().getFile();
+        boolean queenSideCastle = getCurrentFloor().getFile() > rook.getCurrentFloor().getFile();
         boolean kingSideCastle = getCurrentFloor().getFile() < rook.getCurrentFloor().getFile();
 
         if (hasMadeFirstMove || rook.hasMadeFirstMove()) {
             throw new InvalidMoveException("Invalid move");
         }
 
-
-        if (queenSizeCastle) {
+        if (queenSideCastle) {
             Floor floor = board.getFloor(1, 3);
             assignFloor(floor);
             int rookFloorFile = 4;
@@ -89,7 +88,6 @@ public class King extends Piece {
         return hasMadeFirstMove;
     }
 
-
     public boolean hasCastled() {
         return hasCastled;
     }
@@ -99,6 +97,7 @@ public class King extends Piece {
         observer.scanForBishopCheck(board, this);
         observer.scanForKnightCheck(board, this);
         observer.scanForRookCheck(board, this);
+
     }
 
     public void setChecked(boolean isChecked) {
