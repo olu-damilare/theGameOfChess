@@ -1,5 +1,5 @@
-import game.board.Board;
-import game.board.Floor;
+import game.components.board.Board;
+import game.components.board.Floor;
 import game.pieces.*;
 import game.gameExceptions.InvalidMoveException;
 import game.pieces.king.King;
@@ -668,6 +668,5 @@ public class KingTest {
 
         king.counterCheckMove(board);
         assertTrue(king.isCheckMated());
-
     }
 }
