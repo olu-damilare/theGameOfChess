@@ -1,9 +1,9 @@
 package game.pieces;
 
 import game.board.Board;
-import game.properties.Colour;
 import game.board.Floor;
 import game.gameExceptions.InvalidMoveException;
+import game.properties.Colour;
 
 public class Rook extends Piece{
     private boolean hasMadeFirstMove;
