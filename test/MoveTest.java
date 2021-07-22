@@ -1,5 +1,5 @@
-import game.board.Board;
-import game.board.Floor;
+import game.components.board.Board;
+import game.components.board.Floor;
 import game.properties.Move;
 import org.junit.jupiter.api.Test;
 
