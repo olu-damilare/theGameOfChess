@@ -1,4 +1,4 @@
-package game.board;
+package game.components.board;
 
 public class Board {
     private Floor[][] floors;
