@@ -2,10 +2,10 @@ package game.pieces;
 
 import game.board.Board;
 import game.board.Floor;
+import game.gameExceptions.CapturedPieceQueryException;
 import game.properties.Colour;
 import game.properties.Move;
 import game.properties.Position;
-import game.gameExceptions.CapturedPieceQueryException;
 
 import java.util.Stack;
 
