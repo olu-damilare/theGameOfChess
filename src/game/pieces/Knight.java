@@ -1,10 +1,10 @@
 package game.pieces;
 
 import game.board.Board;
-import game.properties.Colour;
 import game.board.Floor;
-import game.properties.Position;
 import game.gameExceptions.InvalidMoveException;
+import game.properties.Colour;
+import game.properties.Position;
 
 public class Knight extends Piece{
     public Knight(Colour colour, Position defaultPosition) {
