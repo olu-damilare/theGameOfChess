@@ -1,6 +1,6 @@
 package game.pieces.king.observers;
 
-import game.board.Board;
+import game.components.board.Board;
 import game.pieces.king.King;
 
 public class KingObserver {
