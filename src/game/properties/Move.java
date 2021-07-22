@@ -1,16 +1,19 @@
 package game.properties;
 
-import game.board.Floor;
+import game.components.board.Floor;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Move {
     private final Floor previousFloor;
     private final Floor currentFloor;
+    private final LocalDateTime timeStamp;
 
     public Move(Floor previousFloor, Floor currentFloor) {
         this.previousFloor = previousFloor;
         this.currentFloor = currentFloor;
+        timeStamp = LocalDateTime.now();
     }
 
     @Override
@@ -28,5 +31,9 @@ public class Move {
 
     public Floor getPreviousFloor() {
         return previousFloor;
+    }
+
+    public LocalDateTime getTimeStamp() {
+        return timeStamp;
     }
 }
