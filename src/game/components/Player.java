@@ -2,6 +2,7 @@ package game.components;
 
 import game.components.board.Board;
 import game.components.board.Floor;
+import game.gameExceptions.InvalidMoveException;
 import game.pieces.Piece;
 
 import java.util.ArrayList;
@@ -27,12 +28,15 @@ public class Player {
     }
 
     public void makeMove(Board board, Piece piece, Floor destinationFloor) {
+        Piece capturedPiece = null;
         if(destinationFloor.isOccupied()) {
             if (destinationFloor.getCurrentOccupant().getColour() != piece.getColour())
-                capturedPieces.add(destinationFloor.getCurrentOccupant());
+                 capturedPiece = destinationFloor.getCurrentOccupant();
         }
         piece.move(destinationFloor, board);
+
         moves.push(piece);
+        capturedPieces.add(capturedPiece);
 
     }
 
