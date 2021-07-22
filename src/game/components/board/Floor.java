@@ -1,4 +1,4 @@
-package game.board;
+package game.components.board;
 
 
 import game.pieces.Piece;
