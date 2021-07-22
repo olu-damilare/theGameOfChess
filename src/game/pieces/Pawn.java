@@ -1,7 +1,7 @@
 package game.pieces;
 
-import game.board.Board;
-import game.board.Floor;
+import game.components.board.Board;
+import game.components.board.Floor;
 import game.gameExceptions.InvalidMoveException;
 import game.properties.Colour;
 import game.properties.Position;
