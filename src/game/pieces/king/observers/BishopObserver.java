@@ -2,6 +2,7 @@ package game.pieces.king.observers;
 
 import game.components.board.Board;
 import game.components.board.Floor;
+import game.pieces.Bishop;
 import game.pieces.king.King;
 
 public class BishopObserver {
@@ -24,7 +25,7 @@ public class BishopObserver {
         if (floor.isOccupied()) {
             if (floor.getCurrentOccupant().getColour() == king.getColour()) {
                 return true;
-            } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Bishop")) {
+            } else if (floor.getCurrentOccupant() instanceof Bishop) {
                 king.setChecked(true);
                 return true;
             }
