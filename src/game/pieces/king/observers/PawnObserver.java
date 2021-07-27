@@ -2,6 +2,7 @@ package game.pieces.king.observers;
 
 import game.components.board.Board;
 import game.components.board.Floor;
+import game.pieces.Pawn;
 import game.pieces.king.King;
 
 public class PawnObserver {
@@ -23,7 +24,7 @@ public class PawnObserver {
 
     private void observeUpperLeftFloor(King king, Floor upperLeftFloor) {
         boolean upperLeftCheck = upperLeftFloor.getCurrentOccupant().getColour() != king.getColour() &&
-                upperLeftFloor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Pawn");
+                upperLeftFloor.getCurrentOccupant() instanceof Pawn;
         if (upperLeftCheck) {
             king.setChecked(true);
         }
@@ -31,7 +32,7 @@ public class PawnObserver {
 
     private void observeUpperRightFloor(King king, Floor upperRightFloor) {
         boolean upperRightCheck = upperRightFloor.getCurrentOccupant().getColour() != king.getColour() &&
-                upperRightFloor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Pawn");
+                upperRightFloor.getCurrentOccupant() instanceof Pawn;
         if (upperRightCheck) {
             king.setChecked(true);
         }
