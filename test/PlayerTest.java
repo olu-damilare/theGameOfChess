@@ -3,14 +3,10 @@ import game.components.board.Floor;
 import game.components.Player;
 import game.pieces.Pawn;
 import game.pieces.Piece;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import static game.properties.Colour.BLACK;
-import static game.properties.Colour.WHITE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static game.properties.Colour.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
 
