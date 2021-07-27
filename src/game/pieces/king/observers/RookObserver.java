@@ -2,6 +2,8 @@ package game.pieces.king.observers;
 
 import game.components.board.Board;
 import game.components.board.Floor;
+import game.pieces.Queen;
+import game.pieces.Rook;
 import game.pieces.king.King;
 
 public class RookObserver {
@@ -73,8 +75,8 @@ public class RookObserver {
     private boolean observeFloor(King king, Floor floor) {
         if (floor.getCurrentOccupant().getColour() == king.getColour()) {
             return true;
-        } else if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Rook") ||
-                floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Queen")) {
+        } else if (floor.getCurrentOccupant() instanceof Rook ||
+                floor.getCurrentOccupant() instanceof Queen) {
             king.setChecked(true);
             return true;
         }
