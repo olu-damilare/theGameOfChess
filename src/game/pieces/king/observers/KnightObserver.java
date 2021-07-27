@@ -2,6 +2,7 @@ package game.pieces.king.observers;
 
 import game.components.board.Board;
 import game.components.board.Floor;
+import game.pieces.Knight;
 import game.pieces.king.King;
 
 public class KnightObserver {
@@ -50,7 +51,7 @@ public class KnightObserver {
         Floor floor = board.getFloor(rank, file);
         if (floor.isOccupied())
             if (floor.getCurrentOccupant().getColour() != king.getColour())
-                if (floor.getCurrentOccupant().getClass().toString().equals("class game.pieces.Knight"))
+                if (floor.getCurrentOccupant() instanceof Knight)
                     king.setChecked(true);
     }
 
