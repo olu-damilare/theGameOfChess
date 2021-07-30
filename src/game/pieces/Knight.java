@@ -29,6 +29,11 @@ public class Knight extends Piece{
         updateFloorsStatus(destinationFloor);
     }
 
+    @Override
+    public String getPseudoName() {
+        return getColour().toString().charAt(0) + "-k";
+    }
+
     private void validateMoveDirection(Floor destinationFloor) {
         boolean isTwoSquaresFurtherVertically = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank()) == 2 &&
                 Math.abs(destinationFloor.getFile() - getCurrentFloor().getFile()) == 1;
