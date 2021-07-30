@@ -7,20 +7,33 @@ import game.pieces.king.King;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static game.properties.Colour.*;
 
 public class Set {
-    private Board board;
-    private List<Piece> whitePieces = new ArrayList();
-    private List<Piece> blackPieces = new ArrayList();
+    private final Board board;
+    private final List<Piece> whitePieces = new ArrayList();
+    private final List<Piece> blackPieces = new ArrayList();
     private boolean hasGeneratedBlackPieces;
     private boolean hasGeneratedWhitePieces;
+    private final Player whitePiecePlayer;
+    private final Player blackPiecePlayer;
 
 
-    public Set() {
+    public Set(String firstPlayer, String secondPlayer) {
         board = new Board(8,8);
 
+        Random randomizer = new Random();
+        int selector = randomizer.nextInt(2);
+        if(selector == 0) {
+            this.whitePiecePlayer = new Player(firstPlayer, WHITE);
+            this.blackPiecePlayer = new Player(secondPlayer, BLACK);
+        }else{
+            this.whitePiecePlayer = new Player(secondPlayer, WHITE);
+            this.blackPiecePlayer = new Player(firstPlayer, BLACK);
+
+        }
     }
 
     public Board getBoard() {
@@ -179,14 +192,11 @@ public class Set {
         return display.toString();
     }
 
-
-    public static void main(String[] args) {
-        Set set = new Set();
-//        set.generateWhitePieces();
-//        set.generateBlackPieces();
-//        set.displayBoard();
-        System.out.println(set.displayBoard());
+    public Player getWhitePiecePlayer() {
+        return whitePiecePlayer;
     }
 
-
+    public Player getBlackPiecePlayer() {
+        return blackPiecePlayer;
+    }
 }
