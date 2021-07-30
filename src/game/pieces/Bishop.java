@@ -35,6 +35,11 @@ public class Bishop extends Piece {
         updateFloorsStatus(destinationFloor);
     }
 
+    @Override
+    public String getPseudoName() {
+        return getColour().toString().charAt(0) + "-B";
+    }
+
     private void validateForDestinationOccupant(Floor destinationFloor, boolean floorIsOccupied) {
         if(floorIsOccupied){
             if(destinationFloor.getCurrentOccupant().getColour() == getColour()){
