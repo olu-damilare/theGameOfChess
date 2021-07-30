@@ -82,4 +82,9 @@ public class Pawn extends Piece {
     public String toString() {
         return "Pawn\n" + super.toString();
     }
+
+    @Override
+    public String getPseudoName() {
+        return getColour().toString().charAt(0) + "-P";
+    }
 }
