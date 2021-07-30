@@ -1,6 +1,7 @@
 import game.components.board.Board;
 import game.components.board.Floor;
 import game.components.Player;
+import game.gameExceptions.InvalidMoveException;
 import game.pieces.Pawn;
 import game.pieces.Piece;
 import org.junit.jupiter.api.*;
@@ -15,7 +16,7 @@ public class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player("slimDaddy");
+        player = new Player("slimDaddy", BLACK);
         board = new Board(8,8);
     }
 
@@ -28,6 +29,7 @@ public class PlayerTest {
     void testThatPlayerHasAnId(){
         assertEquals(1, player.getId());
     }
+
 
     @Test
     void testThatPlayerCanMakeMove(){
@@ -70,5 +72,15 @@ public class PlayerTest {
         assertEquals(enemyFloor, piece.getCurrentFloor());
         assertTrue(enemy.isCaptured());
 
+    }
+
+    @Test
+    void testThatPlayerMovingPieceOfDifferentColour_throwsInvalidMoveException(){
+        Floor pieceFloor = board.getFloor(2,2);
+        Piece piece = new Pawn(WHITE, pieceFloor);
+        assertEquals(pieceFloor, piece.getCurrentFloor());
+        Floor destinationFloor = board.getFloor(3, 2);
+
+        assertThrows(InvalidMoveException.class, ()-> player.makeMove(board, piece, destinationFloor));
     }
 }
