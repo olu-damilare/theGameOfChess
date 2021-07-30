@@ -41,6 +41,11 @@ public class Rook extends Piece{
         updateFloorsStatus(destinationFloor);
     }
 
+    @Override
+    public String getPseudoName() {
+        return getColour().toString().charAt(0) + "-R";
+    }
+
     public void validateForMoveObstruction(Floor destinationFloor, Board board, boolean isNorthDirection, boolean isSouthDirection, boolean isEastDirection, boolean isWestDirection) {
         if(isNorthDirection){
             checkForObstructionNorthWard(destinationFloor, board);
