@@ -1,8 +1,11 @@
+import game.components.Player;
 import game.components.Set;
 import game.components.board.Board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static game.properties.Colour.BLACK;
+import static game.properties.Colour.WHITE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +14,7 @@ public class SetTest {
 
     @BeforeEach
     void setUp(){
-        set = new Set();
+        set = new Set("olu", "slim");
 
     }
 
@@ -226,5 +229,17 @@ public class SetTest {
                 nil		nil		nil		nil		W-K		nil		nil		nil
                 """,set.displayBoard()
         );
+    }
+
+    @Test
+    void testThatSetHasWhitePiecePlayer(){
+        Player player = set.getWhitePiecePlayer();
+        assertEquals(WHITE, player.getColour());
+    }
+
+    @Test
+    void testThatSetHasBlackPiecePlayer(){
+        Player player = set.getBlackPiecePlayer();
+        assertEquals(BLACK, player.getColour());
     }
 }
