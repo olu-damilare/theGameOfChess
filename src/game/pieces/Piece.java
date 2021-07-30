@@ -108,4 +108,6 @@ public abstract class Piece {
                 isCaptured + '\n' +
                 currentFloor;
     }
+
+    public abstract String getPseudoName();
 }
