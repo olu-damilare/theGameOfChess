@@ -11,7 +11,7 @@ import java.util.List;
 import static game.properties.Colour.*;
 
 public class Set {
-    private static Board board;
+    private Board board;
     private List<Piece> whitePieces = new ArrayList();
     private List<Piece> blackPieces = new ArrayList();
     private boolean hasGeneratedBlackPieces;
@@ -27,23 +27,23 @@ public class Set {
         return board;
     }
 
-    private void generateBlackPawns(){
-        for (int i = 0; i < 8; i++) {
+    public void generateBlackPawns(){
+        for (int i = 1; i <= 8; i++) {
             Floor floor = board.getFloor(2, i);
             Piece pawn = new Pawn(BLACK, floor);
             blackPieces.add(pawn);
         }
     }
 
-    private void generateWhitePawns(){
-        for (int i = 0; i < 8; i++) {
+    public void generateWhitePawns(){
+        for (int i = 1; i <= 8; i++) {
             Floor floor = board.getFloor(7, i);
             Piece pawn = new Pawn(WHITE, floor);
             whitePieces.add(pawn);
         }
     }
 
-    private void generateWhiteRooks(){
+    public void generateWhiteRooks(){
         Floor leftFloor = board.getFloor(8, 1);
         Floor rightFloor = board.getFloor(8, 8);
 
@@ -54,7 +54,7 @@ public class Set {
         whitePieces.add(rightRook);
     }
 
-    private void generateBlackRooks(){
+    public void generateBlackRooks(){
         Floor leftFloor = board.getFloor(1, 1);
         Floor rightFloor = board.getFloor(1, 8);
 
@@ -65,7 +65,7 @@ public class Set {
         blackPieces.add(rightRook);
     }
 
-    private void generateBlackKnights(){
+    public void generateBlackKnights(){
         Floor leftFloor = board.getFloor(1, 2);
         Floor rightFloor = board.getFloor(1, 7);
 
@@ -76,7 +76,7 @@ public class Set {
         blackPieces.add(rightKnight);
     }
 
-    private void generateWhiteKnights(){
+    public void generateWhiteKnights(){
         Floor leftFloor = board.getFloor(8, 2);
         Floor rightFloor = board.getFloor(8, 7);
 
@@ -87,7 +87,7 @@ public class Set {
         whitePieces.add(rightKnight);
     }
 
-    private void generateWhiteBishops(){
+    public void generateWhiteBishops(){
         Floor leftFloor = board.getFloor(8, 3);
         Floor rightFloor = board.getFloor(8, 6);
 
@@ -98,7 +98,7 @@ public class Set {
         whitePieces.add(rightBishop);
     }
 
-    private void generateBlackBishops(){
+    public void generateBlackBishops(){
         Floor leftFloor = board.getFloor(1, 3);
         Floor rightFloor = board.getFloor(1, 6);
 
@@ -143,6 +143,7 @@ public class Set {
             generateBlackRooks();
 
             hasGeneratedBlackPieces = true;
+
         }
 
     }
@@ -160,11 +161,31 @@ public class Set {
         }
     }
 
+    public String displayBoard(){
+        Floor[][] floors = board.getFloors();
+        StringBuilder display = new StringBuilder();
+        for (Floor[] floor : floors) {
+            for (int j = 0; j < floor.length; j++) {
+                if (floor[j].isOccupied()) {
+                    Piece occupant = floor[j].getCurrentOccupant();
+                    display.append(occupant.getPseudoName());
+                } else {
+                    display.append("nil");
+                }
+                if(j != floors[1].length - 1) display .append("\t\t");
+            }
+            display.append("\n");
+        }
+        return display.toString();
+    }
+
 
     public static void main(String[] args) {
         Set set = new Set();
-        set.generateWhiteKnights();
-        System.out.println(set.getBoard());
+//        set.generateWhitePieces();
+//        set.generateBlackPieces();
+//        set.displayBoard();
+        System.out.println(set.displayBoard());
     }
 
 
