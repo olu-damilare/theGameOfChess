@@ -13,7 +13,7 @@ public class GameTest {
     @BeforeEach
     void setUp(){
         game = new Game();
-        set = new Set();
+        set = new Set("olu", "slim");
     }
 
     @Test
