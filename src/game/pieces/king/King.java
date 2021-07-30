@@ -40,6 +40,11 @@ public class King extends Piece {
         updateFloorsStatus(destinationFloor);
     }
 
+    @Override
+    public String getPseudoName() {
+        return getColour().toString().charAt(0) + "-K";
+    }
+
     private void validateMove(Floor destinationFloor) {
         boolean northAndSouth = Math.abs(destinationFloor.getRank() - getCurrentFloor().getRank()) == 1 &&
                 (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
