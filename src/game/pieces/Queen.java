@@ -43,6 +43,11 @@ public class Queen extends Piece{
 
     }
 
+    @Override
+    public String getPseudoName() {
+        return getColour().toString().charAt(0) + "-Q";
+    }
+
     private void validateForMoveObstruction(Floor destinationFloor, Board board, Bishop bishop, Rook rook, boolean isUpperLeft, boolean isUpperRight, boolean isLowerLeft, boolean isLowerRight, boolean isNorthDirection, boolean isSouthDirection, boolean isEastDirection, boolean isWestDirection) {
         if(isUpperLeft){
             bishop.checkForObstructionInUpperLeft(destinationFloor, board);
