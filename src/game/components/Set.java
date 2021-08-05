@@ -183,7 +183,7 @@ public class Set {
                     Piece occupant = floor[j].getCurrentOccupant();
                     display.append(occupant.getPseudoName());
                 } else {
-                    display.append("nil");
+                    display.append("--");
                 }
                 if(j != floors[1].length - 1) display .append("\t\t");
             }
@@ -198,5 +198,14 @@ public class Set {
 
     public Player getBlackPiecePlayer() {
         return blackPiecePlayer;
+    }
+
+    public static void main(String[] args) {
+        Set set = new Set("Olu", "Ehis");
+
+        set.generateWhitePieces();
+        set.generateBlackPieces();
+
+        System.out.println(set.displayBoard());
     }
 }
