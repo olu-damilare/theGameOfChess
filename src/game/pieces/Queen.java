@@ -45,7 +45,10 @@ public class Queen extends Piece{
 
     @Override
     public String getPseudoName() {
-        return getColour().toString().charAt(0) + "-Q";
+        if(getColour() == Colour.BLACK)
+        return "\u265B";
+        else
+            return "\u2655";
     }
 
     private void validateForMoveObstruction(Floor destinationFloor, Board board, Bishop bishop, Rook rook, boolean isUpperLeft, boolean isUpperRight, boolean isLowerLeft, boolean isLowerRight, boolean isNorthDirection, boolean isSouthDirection, boolean isEastDirection, boolean isWestDirection) {
