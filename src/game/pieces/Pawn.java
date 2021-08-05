@@ -85,6 +85,9 @@ public class Pawn extends Piece {
 
     @Override
     public String getPseudoName() {
-        return getColour().toString().charAt(0) + "-P";
+        if(getColour() == Colour.BLACK)
+            return "\u265F";
+        else
+            return "\u2659";
     }
 }
