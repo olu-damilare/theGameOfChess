@@ -31,7 +31,10 @@ public class Knight extends Piece{
 
     @Override
     public String getPseudoName() {
-        return getColour().toString().charAt(0) + "-k";
+        if(getColour() == Colour.BLACK)
+            return "\u265E";
+        else
+            return "\u2658";
     }
 
     private void validateMoveDirection(Floor destinationFloor) {
