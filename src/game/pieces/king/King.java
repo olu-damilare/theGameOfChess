@@ -42,7 +42,10 @@ public class King extends Piece {
 
     @Override
     public String getPseudoName() {
-        return getColour().toString().charAt(0) + "-K";
+        if(getColour() == Colour.BLACK)
+            return "\u265A";
+        else
+            return "\u2654";
     }
 
     private void validateMove(Floor destinationFloor) {
