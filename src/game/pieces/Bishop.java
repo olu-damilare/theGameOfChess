@@ -37,7 +37,10 @@ public class Bishop extends Piece {
 
     @Override
     public String getPseudoName() {
-        return getColour().toString().charAt(0) + "-B";
+        if(getColour() == Colour.BLACK)
+            return "\u265D";
+        else
+            return "\u2657";
     }
 
     private void validateForDestinationOccupant(Floor destinationFloor, boolean floorIsOccupied) {
