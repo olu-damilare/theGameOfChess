@@ -43,7 +43,10 @@ public class Rook extends Piece{
 
     @Override
     public String getPseudoName() {
-        return getColour().toString().charAt(0) + "-R";
+        if(getColour() == Colour.BLACK)
+            return "\u265C";
+        else
+            return "\u2656";
     }
 
     public void validateForMoveObstruction(Floor destinationFloor, Board board, boolean isNorthDirection, boolean isSouthDirection, boolean isEastDirection, boolean isWestDirection) {
