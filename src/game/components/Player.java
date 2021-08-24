@@ -57,4 +57,8 @@ public class Player {
     public void resetId(){
         id = 0;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }
