@@ -26,14 +26,14 @@ public class SetTest {
     @Test
     void testThatSetCanSetUpBoard(){
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """, set.displayBoard());
 
     }
@@ -42,14 +42,14 @@ public class SetTest {
     void testThatSetCanSetUpWhitePawns(){
         set.generateWhitePawns();
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                W-P		W-P		W-P		W-P		W-P		W-P		W-P		W-P
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                ♙		♙		♙		♙		♙		♙		♙		♙
+                --		--		--		--		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -58,14 +58,14 @@ public class SetTest {
     void testThatSetCanSetUpBlackPawns(){
         set.generateBlackPawns();
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                B-P		B-P		B-P		B-P		B-P		B-P		B-P		B-P
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		--		--		--		--		--		--		--
+                ♟		♟		♟		♟		♟		♟		♟		♟
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -74,14 +74,14 @@ public class SetTest {
     void testThatSetCanSetUpBlackRooks(){
         set.generateBlackRooks();
         assertEquals("""
-                B-R		nil		nil		nil		nil		nil		nil		B-R
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                ♜		--		--		--		--		--		--		♜
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -90,14 +90,14 @@ public class SetTest {
     void testThatSetCanSetUpWhiteRooks(){
         set.generateWhiteRooks();
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                W-R		nil		nil		nil		nil		nil		nil		W-R
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                ♖		--		--		--		--		--		--		♖
                 """,set.displayBoard()
         );
     }
@@ -106,14 +106,14 @@ public class SetTest {
     void testThatSetCanSetUpWhiteKnights(){
         set.generateWhiteKnights();
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		W-k		nil		nil		nil		nil		W-k		nil
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		♘		--		--		--		--		♘		--
                 """,set.displayBoard()
         );
     }
@@ -122,14 +122,14 @@ public class SetTest {
     void testThatSetCanSetUpBlackKnights(){
         set.generateBlackKnights();
         assertEquals("""
-                nil		B-k		nil		nil		nil		nil		B-k		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		♞		--		--		--		--		♞		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -138,14 +138,14 @@ public class SetTest {
     void testThatSetCanSetUpBlackBishops(){
         set.generateBlackBishops();
         assertEquals("""
-                nil		nil		B-B		nil		nil		B-B		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		--		♝		--		--		♝		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -154,14 +154,14 @@ public class SetTest {
     void testThatSetCanSetUpWhiteBishops(){
         set.generateWhiteBishops();
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		W-B		nil		nil		W-B		nil		nil
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		♗		--		--		♗		--		--
                 """,set.displayBoard()
         );
     }
@@ -170,14 +170,14 @@ public class SetTest {
     void testThatSetCanSetUpWhiteQueen(){
         set.generateWhiteQueen();
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		W-Q		nil		nil		nil		nil
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		♕		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -186,14 +186,14 @@ public class SetTest {
     void testThatSetCanSetUpBlackQueen(){
         set.generateBlackQueen();
         assertEquals("""
-                nil		nil		nil		B-Q		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		--		--		♛		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -202,14 +202,14 @@ public class SetTest {
     void testThatSetCanSetUpBlackKing(){
         set.generateBlackKing();
         assertEquals("""
-                nil		nil		nil		nil		B-K		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		--		--		--		♚		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """,set.displayBoard()
         );
     }
@@ -219,14 +219,14 @@ public class SetTest {
     void testThatSetCanSetUpWhiteKing(){
         set.generateWhiteKing();
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		W-K		nil		nil		nil
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		♔		--		--		--
                 """,set.displayBoard()
         );
     }
