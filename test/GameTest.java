@@ -19,25 +19,25 @@ public class GameTest {
     @Test
     void testThatGameCanSetUpBoard(){
         assertEquals("""
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
-                nil		nil		nil		nil		nil		nil		nil		nil
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
+                --		--		--		--		--		--		--		--
                 """, set.displayBoard());
        game.setUp(set);
        assertEquals("""
-               B-R		B-k		B-B		B-Q		B-K		B-B		B-k		B-R
-               B-P		B-P		B-P		B-P		B-P		B-P		B-P		B-P
-               nil		nil		nil		nil		nil		nil		nil		nil
-               nil		nil		nil		nil		nil		nil		nil		nil
-               nil		nil		nil		nil		nil		nil		nil		nil
-               nil		nil		nil		nil		nil		nil		nil		nil
-               W-P		W-P		W-P		W-P		W-P		W-P		W-P		W-P
-               W-R		W-k		W-B		W-Q		W-K		W-B		W-k		W-R
+               ♜		♞		♝		♛		♚		♝		♞		♜
+               ♟		♟		♟		♟		♟		♟		♟		♟
+               --		--		--		--		--		--		--		--
+               --		--		--		--		--		--		--		--
+               --		--		--		--		--		--		--		--
+               --		--		--		--		--		--		--		--
+               ♙		♙		♙		♙		♙		♙		♙		♙
+               ♖		♘		♗		♕		♔		♗		♘		♖
                """, set.displayBoard());
     }
 }
