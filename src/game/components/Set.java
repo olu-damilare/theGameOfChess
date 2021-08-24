@@ -19,6 +19,8 @@ public class Set {
     private boolean hasGeneratedWhitePieces;
     private final Player whitePiecePlayer;
     private final Player blackPiecePlayer;
+    private King blackKing;
+    private King whiteKing;
 
 
     public Set(String firstPlayer, String secondPlayer) {
@@ -136,14 +138,14 @@ public class Set {
 
     public void generateBlackKing(){
         Floor floor = board.getFloor(1, 5);
-        King king = new King(BLACK, floor);
-        blackPieces.add(king);
+        blackKing = new King(BLACK, floor);
+        blackPieces.add(blackKing);
     }
 
     public void generateWhiteKing(){
         Floor floor = board.getFloor(8, 5);
-        King king = new King(WHITE, floor);
-        whitePieces.add(king);
+        whiteKing = new King(WHITE, floor);
+        whitePieces.add(whiteKing);
     }
 
     public void generateBlackPieces(){
@@ -198,6 +200,10 @@ public class Set {
 
     public Player getBlackPiecePlayer() {
         return blackPiecePlayer;
+    }
+
+    public boolean isGameOver(){
+        return whiteKing.isCheckMated() || blackKing.isCheckMated();
     }
 
     public static void main(String[] args) {
