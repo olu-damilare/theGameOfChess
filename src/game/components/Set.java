@@ -179,10 +179,11 @@ public class Set {
     public String displayBoard(){
         Floor[][] floors = board.getFloors();
         StringBuilder display = new StringBuilder();
-        for (Floor[] floor : floors) {
-            for (int j = 0; j < floor.length; j++) {
-                if (floor[j].isOccupied()) {
-                    Piece occupant = floor[j].getCurrentOccupant();
+        for (int i = 0; i< floors.length; i++) {
+            display.append(i + 1).append("| ");
+            for (int j = 0; j < floors[i].length; j++) {
+                if (floors[i][j].isOccupied()) {
+                    Piece occupant = floors[i][j].getCurrentOccupant();
                     display.append(occupant.getPseudoName());
                 } else {
                     display.append("--");
@@ -190,6 +191,14 @@ public class Set {
                 if(j != floors[1].length - 1) display .append("\t\t");
             }
             display.append("\n");
+        }
+        display.append("________" .repeat(8));
+        display.append("\n\t");
+
+
+        for (int i = 1; i <= 8; i++) {
+            display.append(i).append("\t\t");
+
         }
         return display.toString();
     }
