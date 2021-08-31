@@ -6,6 +6,8 @@ import game.gameExceptions.InvalidMoveException;
 import game.properties.Colour;
 import game.properties.Position;
 
+import static game.properties.Colour.*;
+
 public class Pawn extends Piece {
 
     private boolean hasMadeFirstMove;
@@ -63,14 +65,23 @@ public class Pawn extends Piece {
     }
 
     private boolean isTwoStepMove(Floor destinationFloor) {
-        boolean twoStepMove = destinationFloor.getRank() - getCurrentFloor().getRank() == 2 &&
-                (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
-        return twoStepMove;
+        if(getColour() == BLACK) {
+            return (destinationFloor.getRank() - getCurrentFloor().getRank() == 2) &&
+                    (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
+        }else{
+            return (getCurrentFloor().getRank() - destinationFloor.getRank() == 2) &&
+                    (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
+        }
     }
 
     private boolean isOneStepMove(Floor destinationFloor) {
-        return (destinationFloor.getRank() - getCurrentFloor().getRank() == 1) &&
+        if(getColour() == BLACK) {
+            return (destinationFloor.getRank() - getCurrentFloor().getRank() == 1) &&
                     (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
+        }else{
+            return (getCurrentFloor().getRank() - destinationFloor.getRank() == 1) &&
+                    (destinationFloor.getFile() - getCurrentFloor().getFile() == 0);
+        }
     }
 
 

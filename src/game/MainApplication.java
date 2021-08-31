@@ -14,12 +14,12 @@ public class MainApplication {
         Board board = new Board(8,8);
         Game game = new Game();
         Set set = new Set("Olu", "Slim");
-        Player player1 = set.getBlackPiecePlayer();
-        Player player2 = set.getWhitePiecePlayer();
+        Player player1 = set.getWhitePiecePlayer();
+        Player player2 = set.getBlackPiecePlayer();
         game.setUp(set);
 
-        System.out.println(player1.getUsername() + " owns the black pieces");
-        System.out.println(player2.getUsername() + " owns the white pieces");
+        System.out.println(player1.getUsername() + " owns the white pieces");
+        System.out.println(player2.getUsername() + " owns the black pieces");
         System.out.println();
         Scanner scanner = new Scanner(System.in);
 
@@ -56,10 +56,11 @@ public class MainApplication {
                 continue;
             }
 
+            System.out.println(set.getBoard().getFloor(row, column).getCurrentOccupant());
             try {
                 player1.makeMove(board, set.getBoard().getFloor(row, column).getCurrentOccupant(), set.getBoard().getFloor(destinationRow, destinationColumn));
             } catch (InvalidMoveException e) {
-                System.out.println("Invalid move. try again");
+                System.out.println(e.getLocalizedMessage() + " try again");
                 continue;
             }
             System.out.println(set.displayBoard());
