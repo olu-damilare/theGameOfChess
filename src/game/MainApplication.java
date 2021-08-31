@@ -56,7 +56,6 @@ public class MainApplication {
                 continue;
             }
 
-            System.out.println(set.getBoard().getFloor(row, column).getCurrentOccupant());
             try {
                 player1.makeMove(board, set.getBoard().getFloor(row, column).getCurrentOccupant(), set.getBoard().getFloor(destinationRow, destinationColumn));
             } catch (InvalidMoveException e) {
